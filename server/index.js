@@ -1,18 +1,13 @@
 const express = require('express')
 const volleyball = require('volleyball')
-const bodyParser = require('body-parser')
-
 
 const app = express()
 
 app.use(volleyball)
-
-app.use(bodyParser)
+app.use(express.json())
 
 // requiring router
-
 const auth = require('./auth/index.js')
-
 app.use('/auth', auth)
 
 app.get('/', (req, res) => {
