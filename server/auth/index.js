@@ -46,6 +46,7 @@ router.post('/signup', (req, res, next) => {
                     }
 
                     users.insert(newUser).then(insertedUser => {
+                        delete insertedUser.password
                         res.json(insertedUser)
                     })
                 })
