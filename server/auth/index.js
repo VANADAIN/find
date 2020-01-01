@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
 
 // POST auth/signup
 const schema = Joi.object().keys({
-    username: Joi.string().regex(/(^[a-zA-Z0-9_]*$)/).min(3).max(30).required(), 
-    email: Joi.string().email(),
-    password: Joi.string().regex(/^[a-zA-Z0-9]{8,30}$/).required()
+    username: Joi.string().trim().regex(/(^[a-zA-Z0-9_]*$)/).min(3).max(30).required(), 
+    email: Joi.string().trim().email(),
+    password: Joi.string().trim().regex(/^[a-zA-Z0-9]{8,30}$/).required()
 })
 
 router.post('/signup', (req, res, next) => {
