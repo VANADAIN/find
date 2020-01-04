@@ -3,6 +3,10 @@
 
     <h1>Sign Up</h1>
 
+    <div v-if="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+    </div>
+
     <form @submit.prevent="signup">
         <div class="form-group">
             <h5 for="email">Email address</h5>
@@ -74,8 +78,20 @@
 </template>
 
 <script>
+
+import Joi from 'joi'
+
+const schema = Joi.object().keys({
+    username: Joi.string().trim().regex(/(^[a-zA-Z0-9_]*$)/).min(3).max(30).required(), 
+    email: Joi.string().trim().email(),
+    password: Joi.string().trim().min(8).required(),
+    confirmPassword: Joi.string().trim().min(8).required()
+})
+
 export default {
     data: () => ({
+
+        errorMessage: "",
 
         user: {
             email: '',
@@ -85,10 +101,47 @@ export default {
         }
         
     }),
-    methods: {
-        signup() {
-            console.log('form was submitted!')
+
+    watch: {
+        user: {
+            handler() {
+                this.errorMessage = ''
+            },
+            deep: true
         }
+    },
+
+    methods: {
+
+        signup() {
+            this.errorMessage = ""
+            if (this.validUser()){
+                //send data to server
+                console.log("FINEEE")
+            } 
+        },
+
+        validUser() {
+            if (this.user.password !== this.user.confirmPassword) {
+                this.errorMessage = "Passwords don't match"
+                return false
+            } 
+
+            const result = Joi.validate(this.user, schema)
+
+            if (result.error == null) {
+                return true
+            } 
+
+            if (result.error.message.includes('username')) {
+                this.errorMessage = "Username is invalid."
+            } else {
+                this.errorMessage = "Invalid password."
+            }
+            return false
+            
+        }
+
     }
 }
 </script>
