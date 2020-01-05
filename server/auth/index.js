@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 
 const db = require('../db/connection')
 const users = db.get('users')
-users.createIndex('username', { unique: true})
+users.createIndex('username', { unique: true })
 
 const router = express.Router()
 
@@ -35,6 +35,7 @@ router.post('/signup', (req, res, next) => {
             // there is user -> err
             if (user){
                 const error = new Error('That username is already taken')
+                res.status(409)
                 next(error)
             } else {
                 // hash password and register
@@ -53,6 +54,7 @@ router.post('/signup', (req, res, next) => {
             }
         })
     } else {
+        res.status(422)
         // goes to the errorhandler
         next(result.error) 
     }

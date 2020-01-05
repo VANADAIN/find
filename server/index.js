@@ -1,13 +1,18 @@
 const express = require('express')
 const volleyball = require('volleyball')
+const cors = require('cors')
 
 const app = express()
 
 app.use(volleyball)
+app.use(cors({
+    origin: 'http://localhost:8080'
+}))
 app.use(express.json())
 
 // requiring router
 const auth = require('./auth/index.js')
+
 app.use('/auth', auth)
 
 app.get('/', (req, res) => {

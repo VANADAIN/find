@@ -1,13 +1,17 @@
 <template>
   <div>
 
-    <h1>Sign Up</h1>
+    <h1 class="text-center">Sign Up</h1>
+
+    <div v-if="signingUpLoad">
+        <img src="../assets/eclipse_loading.svg" alt="img"/>
+    </div>
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">
         {{ errorMessage }}
     </div>
 
-    <form @submit.prevent="signup">
+    <form v-if="!signingUpLoad" @submit.prevent="signup">
         <div class="form-group">
             <h5 for="email">Email address</h5>
             <input 
@@ -81,15 +85,19 @@
 
 import Joi from 'joi'
 
+const SIGNUP_URL = 'http://localhost:5000/auth/signup'
+
 const schema = Joi.object().keys({
     username: Joi.string().trim().regex(/(^[a-zA-Z0-9_]*$)/).min(3).max(30).required(), 
-    email: Joi.string().trim().email(),
+    email: Joi.string().trim().email().required(),
     password: Joi.string().trim().min(8).required(),
     confirmPassword: Joi.string().trim().min(8).required()
 })
 
 export default {
     data: () => ({
+
+        signingUpLoad: false,
 
         errorMessage: "",
 
@@ -117,7 +125,43 @@ export default {
             this.errorMessage = ""
             if (this.validUser()){
                 //send data to server
-                console.log("FINEEE")
+                const body = {
+                    username: this.user.username,
+                    password: this.user.password,
+                    email: this.user.email
+                }
+
+                this.signingUpLoad = true
+
+                fetch(SIGNUP_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(body),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json()
+                    } 
+
+                    return response.json().then((error) => {
+                        throw new Error(error.message)
+                    })
+                })
+                .then(() => {
+                    setTimeout(() => {
+                        this.signingUpLoad = false
+                        this.$router.push('/login')
+                    }, 1000 )
+                }).catch((error) => {
+                    setTimeout(() => {
+                        this.signingUpLoad = false
+                        // throwed error
+                        this.errorMessage = error.message 
+                    }, 1000);
+                })
+
             } 
         },
 
@@ -138,10 +182,10 @@ export default {
             } else {
                 this.errorMessage = "Invalid password."
             }
+
             return false
             
         }
-
     }
 }
 </script>
