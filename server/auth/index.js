@@ -60,4 +60,42 @@ router.post('/signup', (req, res, next) => {
     }
 })
 
+function respondError422(res, next) {
+    res.status(422)
+    const error = new Error('Unable to login.')
+    next(error)
+}
+
+router.post('/login', (req, res, next) => {
+    const result = Joi.validate(req.body, schema)
+
+    if (result.error == null) {
+        users.findOne({
+            username: req.body.username
+        })
+        .then(user => {
+            if (user) {
+                // find the user, compare the 
+                // password to 'user' in db
+                bcrypt.compare(req.body.password, user.password)
+                .then((result) => {
+                    if (result) {
+                        // right password
+                        res.json({ result })
+                    } else {
+                        respondError422(res, next)
+                    }
+                    
+                })
+            } else {
+                respondError422(res, next)
+            }
+        })
+    } else {
+        respondError422(res, next)
+    }
+    
+})
+
+
 module.exports = router
