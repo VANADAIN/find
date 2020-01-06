@@ -113,8 +113,9 @@ export default {
           })
         })
         .then((result) => {
-        // correct info 
-          console.log(result)
+        // correct info
+          localStorage.token = result.token
+
           setTimeout(() => {
             this.loggingInLoad = false
             // this.$router.push('/dashboard')
