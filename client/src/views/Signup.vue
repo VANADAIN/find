@@ -11,7 +11,7 @@
         {{ errorMessage }}
     </div>
 
-    <form v-if="!signingUpLoad" @submit.prevent="signup">
+    <form v-if="!signingUpLoad" @submit.prevent="signup()">
         <div class="form-group">
             <h5 for="email">Email address</h5>
             <input 
