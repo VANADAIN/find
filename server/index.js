@@ -6,23 +6,27 @@ require('dotenv').config()
 
 const app = express()
 
+const middlewares = require('./auth/middlewares.js')
+
 app.use(volleyball)
 app.use(cors({
     origin: 'http://localhost:8080'
 }))
 app.use(express.json())
 
+app.use(middlewares.checkTokenSetUser)
+
 // requiring router
 const auth = require('./auth/index.js')
 
-app.use('/auth', auth)
-
 app.get('/', (req, res) => {
     res.json({
-        message: 'Hello there!'
+        message: 'Hello there!',
+        user: req.user
     })
 })
 
+app.use('/auth', auth)
 
 // -- 404 -- 
 function notFound(req, res, next) {

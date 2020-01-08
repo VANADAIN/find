@@ -105,11 +105,11 @@ export default {
         })
         .then((response) => {
           if (response.ok) {
-              return response.json()
+            return response.json()
           } 
 
           return response.json().then((error) => {
-              throw new Error(error.message)
+            throw new Error(error.message)
           })
         })
         .then((result) => {
@@ -118,7 +118,7 @@ export default {
 
           setTimeout(() => {
             this.loggingInLoad = false
-            // this.$router.push('/dashboard')
+            this.$router.push('/dashboard')
           }, 1000 )
         }).catch((error) => {
             setTimeout(() => {
@@ -127,7 +127,7 @@ export default {
               this.errorMessage = error.message 
             }, 1000);
         })
-
+        
         }
 
     },
