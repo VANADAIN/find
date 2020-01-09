@@ -3,7 +3,7 @@
       <h1>Dashboard</h1>
       <h1 v-if="!user"> Getting user info...</h1>
       <h1 v-if="user">Hello, {{ user.username }}</h1>
-      <button class="btn btn-primary">Logout</button>
+      <button @click="logout()" class="btn btn-primary">Logout</button>
   </div>
 </template>
 
@@ -27,11 +27,18 @@ export default {
       if (result.user) {
         this.user = result.user
       } else {
-        localStorage.removeItem('token')
-        this.$router.push('/login')
+        this.logout()
       }
     })
+  },
+
+  methods: {
+    logout() {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
+    }
   }
+
 }
 </script>
 
