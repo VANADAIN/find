@@ -18,6 +18,7 @@ app.use(middlewares.checkTokenSetUser)
 
 // requiring router
 const auth = require('./auth/index.js')
+const pages = require('./api/pages.js')
 
 app.get('/', (req, res) => {
     res.json({
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', auth)
+app.use('/api/pages', middlewares.isLoggedIn, pages)
 
 // -- 404 -- 
 function notFound(req, res, next) {
