@@ -7,9 +7,10 @@
       <br>
       <br>
       <button @click="showForm = !showForm" class="btn btn-primary">Create page</button>
-      <form class="main" v-if="showForm">
+
+      <form class="main" v-if="showForm"  @submit.prevent="addPage()">
         
-        <div class="form-group" @submit.prevent="addPage()">
+        <div class="form-group">
           <label for="name">Name</label>
           <input v-model="newPage.name" type="text" class="form-control" 
           id="name" aria-describedby="namehelp" placeholder="Name" required>
@@ -30,6 +31,7 @@
           <small id="experiencehelp" class="form-text text-muted">Enter your experience</small>
         </div>
 
+        <!-- change for select option -->
         <div class="form-group">
           <label for="instrument">Instrument</label>
           <input v-model="newPage.instrument" type="text" class="form-control" 
@@ -37,16 +39,45 @@
           <small id="instrumenthelp" class="form-text text-muted">Enter your main instrument</small>
         </div>
 
+        <!-- change for select option -->
         <div class="form-group">
           <label for="second_instrument">Second Instrument</label>
           <input v-model="newPage.second_instrument" type="text" class="form-control" 
           id="second_instrument" aria-describedby="second_instrumenthelp" placeholder="Second instrument" >
           <small id="second_instrumenthelp" class="form-text text-muted">Enter your second instrument</small>
         </div>
+        
+        <div class="form-group">
+          <label for="public">Have you performed in public?</label>
+          <select v-model="newPage.public" id="public" class="custom-select select">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
 
-        <!-- add public performance -->
+        <div class="form-group">
+          <label for="avatar_link">Avatar link</label>
+          <input v-model="newPage.avatar_link" type="text" class="form-control" 
+          id="avatar_link" aria-describedby="avatar_linkhelp" placeholder="Avatar link" >
+          <small id="avatar_linkhelp" class="form-text text-muted">Add link for your page avatar</small>
+        </div>
 
-        <button @click="addPage()" class="btn btn-primary">Add page</button>
+        <div class="form-group">
+          <label for="note">Additional info:</label>
+          <textarea v-model="newPage.note" id="note" class="form-control" rows="10"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="youtube">Youtube link</label>
+          <input v-model="newPage.youtube" type="text" class="form-control" 
+          id="youtube" aria-describedby="youtubehelp" placeholder="Youtube link" >
+          <small id="youtubehelp" class="form-text text-muted">You can add video of your performance</small>
+        </div>
+
+        <br>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Add page</button>
 
       </form>
   </div>
@@ -68,6 +99,10 @@ export default {
       experience: '',
       instrument: '',
       second_instrument: '',
+      public: '',
+      avatar_link: '',
+      note: '',
+      youtube: '',
     }
 
   }),
@@ -95,7 +130,7 @@ export default {
     },
 
     addPage() {
-
+      console.log(this.newPage)
     }
 
   }
@@ -106,5 +141,8 @@ export default {
 <style>
 .main {
   padding-top: 40px;
+}
+.select {
+  margin-bottom: 20px;
 }
 </style>
