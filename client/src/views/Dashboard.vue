@@ -30,29 +30,28 @@
           id="experience" aria-describedby="experiencehelp" placeholder="Experience" required>
           <small id="experiencehelp" class="form-text text-muted">Enter your experience</small>
         </div>
-
-        <!-- change for select option -->
-        <div class="form-group">
-          <label for="instrument">Instrument</label>
-          <input v-model="newPage.instrument" type="text" class="form-control" 
-          id="instrument" aria-describedby="instrumenthelp" placeholder="Instrument" required>
-          <small id="instrumenthelp" class="form-text text-muted">Enter your main instrument</small>
-        </div>
-
-        <!-- change for select option -->
-        <div class="form-group">
-          <label for="second_instrument">Second Instrument</label>
-          <input v-model="newPage.second_instrument" type="text" class="form-control" 
-          id="second_instrument" aria-describedby="second_instrumenthelp" placeholder="Second instrument" >
-          <small id="second_instrumenthelp" class="form-text text-muted">Enter your second instrument</small>
-        </div>
         
+        <div>
+          <label for="main_instrument">Main Instrument</label>
+          <multiselect id="main_instrument" class="instrument_select" placeholder="Main insrument" 
+          v-model="newPage.main_instrument" :options="mi_options">Main instrument</multiselect>
+        </div>
+
+        <div>
+          <label for="second_instrument">Second Instrument</label>
+          <multiselect id="second_instrument" class="instrument_select" placeholder="Second insrument" 
+          v-model="newPage.second_instrument" :options="si_options">Second instrument</multiselect>
+        </div>
+
+        <div>
+          <label for="second_instrument">Have you performed in public?</label>
+          <multiselect id="public" class="instrument_select" placeholder="Public performance" 
+          v-model="newPage.public" :options="public_options">Public performance</multiselect>
+        </div>
+
         <div class="form-group">
-          <label for="public">Have you performed in public?</label>
-          <select v-model="newPage.public" id="public" class="custom-select select">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
+          <label for="note">Additional info:</label>
+          <textarea v-model="newPage.note" id="note" class="form-control" rows="10"></textarea>
         </div>
 
         <div class="form-group">
@@ -60,11 +59,6 @@
           <input v-model="newPage.avatar_link" type="text" class="form-control" 
           id="avatar_link" aria-describedby="avatar_linkhelp" placeholder="Avatar link" >
           <small id="avatar_linkhelp" class="form-text text-muted">Add link for your page avatar</small>
-        </div>
-
-        <div class="form-group">
-          <label for="note">Additional info:</label>
-          <textarea v-model="newPage.note" id="note" class="form-control" rows="10"></textarea>
         </div>
 
         <div class="form-group">
@@ -85,9 +79,13 @@
 
 <script>
 
+import Multiselect from 'vue-multiselect'
+
 const API_URL = 'http://localhost:5000/'
 
 export default {
+
+  components: { Multiselect },
 
   data: () => ({
     showForm: false,
@@ -97,13 +95,19 @@ export default {
       name: '',
       age: '',
       experience: '',
-      instrument: '',
+      main_instrument: '',
       second_instrument: '',
       public: '',
       avatar_link: '',
       note: '',
       youtube: '',
-    }
+    },
+
+
+    value: null,
+    mi_options: ['list', 'of', 'options'],
+    si_options: ['list', 'of', 'options'],
+    public_options: ['Yes', 'No']
 
   }),
 
@@ -145,4 +149,8 @@ export default {
 .select {
   margin-bottom: 20px;
 }
+.instrument_select {
+  margin-bottom: 16px;
+}
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
