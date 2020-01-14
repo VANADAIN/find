@@ -179,8 +179,18 @@ export default {
     },
 
     addPage() {
-      console.log(this.newPage)
-      console.log(this.newPage.age)
+      fetch(`${API_URL}api/pages` , {
+        method: 'POST',
+        body: JSON.stringify(this.newPage),
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(res => res.json())
+      .then((page) => {
+        console.log(page)
+      })
     }
 
   }
