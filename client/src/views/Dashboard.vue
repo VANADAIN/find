@@ -32,22 +32,66 @@
         </div>
         
         <div>
+          <label for="genre">Genre</label>
+          <v-select id="genre" v-model="newPage.genre" :options="genre_options"  
+          placeholder="Genre">
+            <template #search="{attributes, events}">
+              <input
+                class="vs__search"
+                :required="!newPage.genre"
+                v-bind="attributes"
+                v-on="events"
+              />
+            </template>
+          </v-select>
+        </div>
+
+        <div>
+          <label for="main_instrument">Main Instrument</label>
+          <v-select id="main_instrument" v-model="newPage.main_instrument" 
+          :options="mi_options" required 
+          placeholder="Main Insrument"></v-select>
+        </div>
+  
+        <div>
+          <label for="second_instrument">Second Instrument</label>
+          <v-select id="second_instrument" v-model="newPage.second_instrument" 
+          :options="mi_options" required 
+          placeholder="Second Insrument"></v-select>
+        </div>
+
+        <div>
+          <label for="public">Have you performed in public?</label>
+          <v-select id="public" v-model="newPage.public" 
+          :options="public_options" required 
+          placeholder="Public performances"></v-select>
+        </div>
+
+
+<!-- 
+        <div>
+          <label for="genre">Genre</label>
+          <multiselect id="genre" class="instrument_select" placeholder="Genre" 
+          v-model="newPage.genre" :options="genre_options" required>Choose your genre</multiselect>
+        </div>
+
+        <div>
           <label for="main_instrument">Main Instrument</label>
           <multiselect id="main_instrument" class="instrument_select" placeholder="Main insrument" 
-          v-model="newPage.main_instrument" :options="mi_options">Main instrument</multiselect>
+          v-model="newPage.main_instrument" :options="mi_options" required>Main instrument</multiselect>
         </div>
 
         <div>
           <label for="second_instrument">Second Instrument</label>
           <multiselect id="second_instrument" class="instrument_select" placeholder="Second insrument" 
-          v-model="newPage.second_instrument" :options="si_options">Second instrument</multiselect>
+          v-model="newPage.second_instrument" :options="mi_options">Second instrument</multiselect>
         </div>
 
         <div>
           <label for="second_instrument">Have you performed in public?</label>
           <multiselect id="public" class="instrument_select" placeholder="Public performance" 
-          v-model="newPage.public" :options="public_options">Public performance</multiselect>
-        </div>
+          v-model="newPage.public" :options="public_options" required>Public performance</multiselect>
+        </div> -->
 
         <div class="form-group">
           <label for="note">Additional info:</label>
@@ -79,13 +123,13 @@
 
 <script>
 
-import Multiselect from 'vue-multiselect'
+import vSelect from 'vue-select'
 
 const API_URL = 'http://localhost:5000/'
 
 export default {
 
-  components: { Multiselect },
+  components: { vSelect },
 
   data: () => ({
     showForm: false,
@@ -93,8 +137,9 @@ export default {
 
     newPage: {
       name: '',
-      age: '',
-      experience: '',
+      age: null,
+      experience: null,
+      genre: '',
       main_instrument: '',
       second_instrument: '',
       public: '',
@@ -106,7 +151,7 @@ export default {
 
     value: null,
     mi_options: ['list', 'of', 'options'],
-    si_options: ['list', 'of', 'options'],
+    genre_options: ['metal', 'pop'],
     public_options: ['Yes', 'No']
 
   }),
@@ -135,6 +180,7 @@ export default {
 
     addPage() {
       console.log(this.newPage)
+      console.log(this.newPage.age)
     }
 
   }
@@ -153,4 +199,4 @@ export default {
   margin-bottom: 16px;
 }
 </style>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="vue-select/dist/vue-select.css"></style>
