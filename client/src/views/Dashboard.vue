@@ -19,14 +19,14 @@
 
         <div class="form-group">
           <label for="age">Age</label>
-          <input v-model="newPage.age" type="number" class="form-control" 
+          <input min="0" step="1" v-model="newPage.age" type="number" class="form-control" 
           id="age" aria-describedby="agehelp" placeholder="Age" required>
           <small id="agehelp" class="form-text text-muted">Enter your age</small>
         </div>
 
         <div class="form-group">
           <label for="experience">Years of experience</label>
-          <input v-model="newPage.experience" type="number" class="form-control" 
+          <input  min="0" step="0.5" v-model="newPage.experience" type="number" class="form-control" 
           id="experience" aria-describedby="experiencehelp" placeholder="Experience" required>
           <small id="experiencehelp" class="form-text text-muted">Enter your experience</small>
         </div>
@@ -143,8 +143,8 @@ export default {
       main_instrument: '',
       second_instrument: '',
       public: '',
-      avatar_link: '',
       note: '',
+      avatar_link: '',
       youtube: '',
     },
 
