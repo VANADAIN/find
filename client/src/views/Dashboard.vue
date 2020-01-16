@@ -33,7 +33,7 @@
         
         <div>
           <label for="genre">Genre</label>
-          <v-select id="genre" v-model="newPage.genre" :options="genre_options"  
+          <v-select class="input_form" id="genre" v-model="newPage.genre" :options="genre_options"  
           placeholder="Genre">
             <template #search="{attributes, events}">
               <input
@@ -46,28 +46,52 @@
           </v-select>
         </div>
 
-        <!-- rewrite with genre style -->
-
         <div>
           <label for="main_instrument">Main Instrument</label>
-          <v-select id="main_instrument" v-model="newPage.main_instrument" 
-          :options="mi_options" required 
-          placeholder="Main Insrument"></v-select>
+          <v-select class="input_form" id="main_instrument" v-model="newPage.main_instrument" :options="mi_options"  
+          placeholder="Main Instrument">
+            <template #search="{attributes, events}">
+              <input
+                class="vs__search"
+                :required="!newPage.main_instrument"
+                v-bind="attributes"
+                v-on="events"
+              />
+            </template>
+          </v-select>
         </div>
-  
+
         <div>
-          <label for="second_instrument">Second Instrument</label>
-          <v-select id="second_instrument" v-model="newPage.second_instrument" 
-          :options="mi_options" required 
-          placeholder="Second Insrument"></v-select>
+          <label for="second_instrument">Main Instrument</label>
+          <v-select class="input_form" id="second_instrument" v-model="newPage.second_instrument" :options="mi_options"  
+          placeholder="Second instrument">
+            <template #search="{attributes, events}">
+              <input
+                class="vs__search"
+                :required="!newPage.second_instrument"
+                v-bind="attributes"
+                v-on="events"
+              />
+            </template>
+          </v-select>
         </div>
 
         <div>
           <label for="public">Have you performed in public?</label>
-          <v-select id="public" v-model="newPage.public" 
-          :options="public_options" required 
-          placeholder="Public performances"></v-select>
+          <v-select class="input_form" id="public" v-model="newPage.public" :options="public_options"  
+          placeholder="Public performances">
+            <template #search="{attributes, events}">
+              <input
+                class="vs__search"
+                :required="!newPage.public"
+                v-bind="attributes"
+                v-on="events"
+              />
+            </template>
+          </v-select>
         </div>
+
+        <!-- rewrite with genre style -->
 
         <div class="form-group">
           <label for="note">Additional info:</label>
@@ -195,11 +219,19 @@ export default {
 .main {
   padding-top: 40px;
 }
-.select {
-  margin-bottom: 20px;
+.input_form {
+  margin-bottom: 24px;
+  background-color: #fff;
+  border: 1px solid #222;
+  border-radius: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
-.instrument_select {
-  margin-bottom: 16px;
-}
+
 </style>
 <style src="vue-select/dist/vue-select.css"></style>
