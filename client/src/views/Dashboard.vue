@@ -26,7 +26,7 @@
 
         <div class="form-group">
           <label for="experience">Years of experience</label>
-          <input  min="0" step="0.5" v-model="newPage.experience" type="number" class="form-control" 
+          <input  min="0" step="1" v-model="newPage.experience" type="number" class="form-control" 
           id="experience" aria-describedby="experiencehelp" placeholder="Experience" required>
           <small id="experiencehelp" class="form-text text-muted">Enter your experience</small>
         </div>
@@ -45,6 +45,8 @@
             </template>
           </v-select>
         </div>
+
+        <!-- rewrite with genre style -->
 
         <div>
           <label for="main_instrument">Main Instrument</label>
@@ -66,32 +68,6 @@
           :options="public_options" required 
           placeholder="Public performances"></v-select>
         </div>
-
-
-<!-- 
-        <div>
-          <label for="genre">Genre</label>
-          <multiselect id="genre" class="instrument_select" placeholder="Genre" 
-          v-model="newPage.genre" :options="genre_options" required>Choose your genre</multiselect>
-        </div>
-
-        <div>
-          <label for="main_instrument">Main Instrument</label>
-          <multiselect id="main_instrument" class="instrument_select" placeholder="Main insrument" 
-          v-model="newPage.main_instrument" :options="mi_options" required>Main instrument</multiselect>
-        </div>
-
-        <div>
-          <label for="second_instrument">Second Instrument</label>
-          <multiselect id="second_instrument" class="instrument_select" placeholder="Second insrument" 
-          v-model="newPage.second_instrument" :options="mi_options">Second instrument</multiselect>
-        </div>
-
-        <div>
-          <label for="second_instrument">Have you performed in public?</label>
-          <multiselect id="public" class="instrument_select" placeholder="Public performance" 
-          v-model="newPage.public" :options="public_options" required>Public performance</multiselect>
-        </div> -->
 
         <div class="form-group">
           <label for="note">Additional info:</label>
@@ -132,6 +108,7 @@ export default {
   components: { vSelect },
 
   data: () => ({
+
     showForm: false,
     user: {},
 
@@ -148,6 +125,7 @@ export default {
       youtube: '',
     },
 
+    pages: [],
 
     value: null,
     mi_options: ['list', 'of', 'options'],
@@ -191,7 +169,20 @@ export default {
       })
       .then(res => res.json())
       .then((page) => {
-        console.log(page)
+        this.pages.push(page)
+        this.newPage = {
+          name: '',
+          age: null,
+          experience: null,
+          genre: '',
+          main_instrument: '',
+          second_instrument: '',
+          public: '',
+          note: '',
+          avatar_link: '',
+          youtube: ''
+        }
+        this.showForm = false
       })
     }
 
