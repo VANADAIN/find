@@ -179,6 +179,8 @@ export default {
     },
 
     addPage() {
+      this.newPage.age = Number(this.newPage.age)
+      this.newPage.experience = Number(this.newPage.experience)
       fetch(`${API_URL}api/pages` , {
         method: 'POST',
         body: JSON.stringify(this.newPage),
