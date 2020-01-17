@@ -5,6 +5,21 @@
       <h1 v-if="user">Hello, {{ user.username }}</h1>
       <button @click="logout()" class="btn btn-primary">Logout</button>
       <br>
+      <section class="row mt-3"> 
+        <div class="col-4"
+        v-for="page in pages"
+        :key="page._id">
+          <div 
+          class="card border-dark mb-3">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+              <h4 class="card-title">{{ page.name }}</h4>
+              <p class="card-text">{{ page.note }}.</p>
+            </div>
+          </div>
+        </div>
+        
+      </section>
       <br>
       <button @click="showForm = !showForm" class="btn btn-primary">Create page</button>
 
@@ -167,6 +182,7 @@ export default {
     .then((result) => {
       if (result.user) {
         this.user = result.user
+        this.getPages()
       } else {
         this.logout()
       }
@@ -174,6 +190,18 @@ export default {
   },
 
   methods: {
+
+    getPages() {
+      fetch(`${API_URL}api/pages`, {
+        headers: {
+          authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(res => res.json())
+      .then((pages) => {
+        this.pages = pages
+      })
+    },
 
     logout() {
       localStorage.removeItem('token')
@@ -183,6 +211,12 @@ export default {
     addPage() {
       this.newPage.age = Number(this.newPage.age)
       this.newPage.experience = Number(this.newPage.experience)
+      
+      // logical check
+      // if (this.newPage.experience > this.newPage.age) {
+      //   //return error
+      // }
+
       fetch(`${API_URL}api/pages` , {
         method: 'POST',
         body: JSON.stringify(this.newPage),

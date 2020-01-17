@@ -33,7 +33,12 @@ const schema = Joi.object().keys({
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.json([])
+    pages.find({
+        user_id: req.user._id
+    })
+    .then(pages => {
+        res.json(pages)
+    })
 })
 
 router.post('/', (req, res, next) => {
