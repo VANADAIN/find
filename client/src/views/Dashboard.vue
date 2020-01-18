@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div class="col-12">
       <h1>Dashboard</h1>
       <h1 v-if="!user"> Getting user info...</h1>
       <h1 v-if="user">Hello, {{ user.username }}</h1>
@@ -121,7 +121,7 @@
 
     <section class="row mt-3"> 
         <div 
-          class="col-6"
+          class="col-4"
           v-for="page in pages"
           :key="page._id">
           <div class="card border-dark mb-3">
@@ -134,7 +134,7 @@
         </div>
       </section>
 
-  </section>
+  </div>
 </template>
 
 <script>
