@@ -1,25 +1,10 @@
 <template>
-  <div>
+  <section>
       <h1>Dashboard</h1>
       <h1 v-if="!user"> Getting user info...</h1>
       <h1 v-if="user">Hello, {{ user.username }}</h1>
       <button @click="logout()" class="btn btn-primary">Logout</button>
       <br>
-      <section class="row mt-3"> 
-        <div class="col-4"
-        v-for="page in pages"
-        :key="page._id">
-          <div 
-          class="card border-dark mb-3">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-              <h4 class="card-title">{{ page.name }}</h4>
-              <p class="card-text">{{ page.note }}.</p>
-            </div>
-          </div>
-        </div>
-        
-      </section>
       <br>
       <button @click="showForm = !showForm" class="btn btn-primary">Create page</button>
 
@@ -133,13 +118,33 @@
         <button type="submit" class="btn btn-primary">Add page</button>
 
       </form>
-  </div>
+
+    <section class="row mt-3"> 
+        <div 
+          class="col-6"
+          v-for="page in pages"
+          :key="page._id">
+          <div class="card border-dark mb-3">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+              <h4 class="card-title">{{ page.name }}</h4>
+              <p class="card-text" v-html="renderMarkDown(page.note)"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  </section>
 </template>
 
 <script>
 
+import MarkdownIt from 'markdown-it'
+import MDemoji from 'markdown-it-emoji'
 import vSelect from 'vue-select'
 
+const md = new MarkdownIt()
+md.use(MDemoji)
 const API_URL = 'http://localhost:5000/'
 
 export default {
@@ -149,7 +154,7 @@ export default {
   data: () => ({
 
     showForm: false,
-    user: {},
+    user: null,
 
     newPage: {
       name: '',
@@ -191,6 +196,15 @@ export default {
 
   methods: {
 
+    logout() {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
+    },
+
+    renderMarkDown(page) {
+      return md.render(page)
+    },
+
     getPages() {
       fetch(`${API_URL}api/pages`, {
         headers: {
@@ -201,11 +215,6 @@ export default {
       .then((pages) => {
         this.pages = pages
       })
-    },
-
-    logout() {
-      localStorage.removeItem('token')
-      this.$router.push('/login')
     },
 
     addPage() {
@@ -242,7 +251,7 @@ export default {
         }
         this.showForm = false
       })
-    }
+    },
 
   }
 
@@ -266,6 +275,12 @@ export default {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
-
+.card {
+  height: 90%;
+  margin-bottom: 1em;
+}
+.card-text img {
+  width: 100%
+}
 </style>
 <style src="vue-select/dist/vue-select.css"></style>

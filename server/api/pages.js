@@ -49,10 +49,11 @@ router.post('/', (req, res, next) => {
             ...req.body,
             user_id: req.user._id
         }
-        pages.insert(req.body)
-        .then(page => {
-            res.json(page)
-        })
+        pages
+            .insert(page)
+            .then(page => {
+                res.json(page)
+            })
     } else {
         const error = new Error(result.error)
         res.status(422)
