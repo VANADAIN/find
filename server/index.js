@@ -1,6 +1,7 @@
 const express = require('express')
 const volleyball = require('volleyball')
 const cors = require('cors')
+const helmet = require('helmet')
 
 require('dotenv').config()
 
@@ -8,17 +9,19 @@ const app = express()
 
 const middlewares = require('./auth/middlewares.js')
 
+const auth = require('./auth/index.js')
+const pages = require('./api/pages.js')
+const users = require('./api/users.js')
+
 app.use(volleyball)
+
 app.use(cors({
     origin: 'http://localhost:8080'
 }))
+
 app.use(express.json())
-
+app.use(helmet())
 app.use(middlewares.checkTokenSetUser)
-
-// requiring router
-const auth = require('./auth/index.js')
-const pages = require('./api/pages.js')
 
 app.get('/', (req, res) => {
     res.json({
@@ -29,6 +32,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', auth)
 app.use('/api/pages', middlewares.isLoggedIn, pages)
+app.use('/api/users', users)
 
 // -- 404 -- 
 function notFound(req, res, next) {
