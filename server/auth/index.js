@@ -27,7 +27,9 @@ const schema = Joi.object().keys({
 function createToken(user, res, next) {
     const payload = {
         _id: user._id,
-        username: user.username
+        username: user.username,
+        role: user.role,
+        active: user.active
     }
 
     // JWT part --
@@ -97,7 +99,7 @@ router.post('/login', (req, res, next) => {
             username: req.body.username
         })
         .then(user => {
-            if (user) {
+            if (user && user.active) {
                 // find the user, compare the 
                 // password to 'user' in db
                 bcrypt.compare(req.body.password, user.password)

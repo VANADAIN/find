@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', auth)
 app.use('/api/pages', middlewares.isLoggedIn, pages)
-app.use('/api/users', users)
+app.use('/api/users', middlewares.isLoggedIn, middlewares.isAdmin, users)
 
 // -- 404 -- 
 function notFound(req, res, next) {
