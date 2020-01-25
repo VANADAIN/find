@@ -59,7 +59,9 @@ describe("POST /auth/signup", () => {
 			.post("/auth/signup")
 			.send(newUser)
 			.expect(409);
-		expect(response.body.message).to.equal("That username is already taken");
+		expect(response.body.message).to.equal(
+			"That username is already taken. Choose another one."
+		);
 	});
 });
 

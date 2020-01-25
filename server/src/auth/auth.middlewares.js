@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
-const schema = require("./auth.schema");
 const Joi = require("joi");
+
+const schema = require("./auth.schema");
+const users = require("./auth.model");
 
 function checkTokenSetUser(req, res, next) {
 	const authHeader = req.get("authorization");
@@ -60,9 +62,28 @@ const validateUser = (defaultErrorMessage = "") => (req, res, next) => {
 	}
 };
 
+const findUser = (defaultLoginError, isError, errorCode = 422) => async (
+	req,
+	res,
+	next
+) => {
+	const user = await users.findOne({
+		username: req.body.username
+	});
+	if (isError(user)) {
+		res.status(errorCode);
+		next(new Error(defaultLoginError));
+	} else {
+		// comes to brypt compare
+		req.loggingInUser = user;
+		next();
+	}
+};
+
 module.exports = {
 	checkTokenSetUser,
 	isLoggedIn,
 	isAdmin,
-	validateUser
+	validateUser,
+	findUser
 };

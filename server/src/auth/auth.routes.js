@@ -6,13 +6,26 @@ const middlewares = require("./auth.middlewares");
 
 // Any route here is with /auth --
 
+const defaultLoginError = "Unable to login.";
+const signUpError = "That username is already taken. Choose another one.";
+
 router.get("/", controller.get);
 
-router.post("/signup", middlewares.validateUser(), controller.signup);
+router.post(
+	"/signup",
+	middlewares.validateUser(),
+	middlewares.findUser(signUpError, user => user, 409),
+	controller.signup
+);
 
 router.post(
 	"/login",
-	middlewares.validateUser("Unable to login."),
+	middlewares.validateUser(defaultLoginError),
+	middlewares.findUser(
+		defaultLoginError,
+		// becomes isError
+		user => !(user && user.active)
+	),
 	controller.login
 );
 
