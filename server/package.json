@@ -7,7 +7,7 @@
 		"start": "node src/index.js",
 		"dev": "nodemon src/index.js",
 		"seed:admin": "node src/tasks/createAdminUser.js",
-		"test": "mocha src/"
+		"test": "set NODE_ENV=test & mocha src/*.test.js src/*/*.test.js --watch"
 	},
 	"author": "Ivan Marchuk",
 	"license": "ISC",

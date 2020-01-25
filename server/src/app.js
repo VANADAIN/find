@@ -7,9 +7,9 @@ require("dotenv").config();
 
 const app = express();
 
-const middlewares = require("./auth/middlewares.js");
+const middlewares = require("./auth/auth.middlewares.js");
 
-const auth = require("./auth/index.js");
+const auth = require("./auth/auth.routes");
 const pages = require("./api/pages.js");
 const users = require("./api/users.js");
 
