@@ -2,29 +2,29 @@ const express = require("express");
 const volleyball = require("volleyball");
 const cors = require("cors");
 const helmet = require("helmet");
-
 require("dotenv").config();
 
 const app = express();
 
+//* auth part
 const middlewares = require("./auth/auth.middlewares.js");
-
 const auth = require("./auth/auth.routes");
-const pages = require("./api/pages.js");
-const users = require("./api/users.js");
 
-app.use(volleyball);
+//* api part
+const pages = require("./api/api.pages");
+const users = require("./api/api.users");
 
 app.use(
 	cors({
 		origin: "http://localhost:8080"
 	})
 );
-
+app.use(volleyball);
 app.use(express.json());
 app.use(helmet());
 app.use(middlewares.checkTokenSetUser);
 
+//! delete this if not necessarily
 app.get("/", (req, res) => {
 	res.json({
 		message: "Hello there!",
@@ -36,14 +36,13 @@ app.use("/auth", auth);
 app.use("/api/pages", middlewares.isLoggedIn, pages);
 app.use("/api/users", middlewares.isLoggedIn, middlewares.isAdmin, users);
 
-// -- 404 --
+//* errors part
 function notFound(req, res, next) {
 	res.status(404);
 	const error = new Error("Not Found - " + req.originalUrl);
 	next(error);
 }
 
-// -- err --
 function errorHandler(err, req, res, next) {
 	res.status(res.statusCode || 500);
 	res.json({
