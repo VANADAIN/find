@@ -23,7 +23,7 @@ router.post(
 	middlewares.validateUser(defaultLoginError),
 	middlewares.findUser(
 		defaultLoginError,
-		// becomes isError
+		// next string becomes isError
 		user => !(user && user.active)
 	),
 	controller.login
