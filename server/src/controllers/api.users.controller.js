@@ -1,8 +1,9 @@
 const bcrypt = require("bcryptjs");
 const Joi = require("joi");
+
 const db = require(".././db/connection");
 const users = db.get("users");
-const schema = require("../api/api.users.schema");
+const schema = require("../api/users/api.users.schema");
 
 const list = async (req, res, next) => {
 	try {

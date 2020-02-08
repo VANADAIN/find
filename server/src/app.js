@@ -11,8 +11,8 @@ const middlewares = require("./auth/auth.middlewares.js");
 const auth = require("./auth/auth.routes");
 
 //* api part
-const pages = require("./api/api.pages");
-const users = require("./api/api.users");
+const pages = require("./api/pages/api.pages.routes");
+const users = require("./api/users/api.users.routes");
 
 app.use(
 	cors({
