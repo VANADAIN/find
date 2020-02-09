@@ -8,15 +8,20 @@ const schema = require("../api/pages/api.pages.schema")
 // * returns and posts pages in dashboard section
 
 const get = async (req, res, next) => {
+
 	try {
-		const pages = await pages.find({
+		const res_pages = await pages.find({
 			user_id: req.user._id
 		});
-		res.json(pages);
+
+		res.json(res_pages);
 	} catch (error) {
-		res.status(422);
-		next(error);
+		res.json(422)
+		next(error)
 	}
+
+
+
 };
 
 const post = async (req, res, next) => {

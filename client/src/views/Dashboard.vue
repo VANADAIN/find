@@ -173,8 +173,8 @@
           <div class="card-header">Header</div>
           <div class="card-body">
             <h4 class="card-title">{{ page.name }}</h4>
-            <p class="card-text">{{ page.note }}</p>
-            <!-- v-html="renderMarkDown(page.note)" -->
+            <p class="card-text" v-html="renderMarkDown(page.note)">{{ page.note }}</p>
+            <!--  -->
           </div>
         </div>
       </div>
@@ -220,7 +220,7 @@ export default {
       }
     })
       .then(res => res.json())
-      .then((result)=> {
+      .then(result => {
         if (result.user) {
           this.user = result.user;
           this.getPages();
@@ -244,7 +244,7 @@ export default {
         }
       })
         .then(res => res.json())
-        .then((pages) => {
+        .then(pages => {
           this.pages = pages;
         });
     },
@@ -262,8 +262,8 @@ export default {
           }
         })
           .then(res => res.json())
-          .then((page) => {
-            this.pages.push(page);
+          .then(res => {
+            this.pages.push(res);
             this.newPage = {
               name: "",
               age: null,
