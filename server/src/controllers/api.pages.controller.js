@@ -29,8 +29,8 @@ const post = async (req, res, next) => {
 				...req.body,
 				user_id: req.user._id
 			};
-			const res_page = await pages.insert(page);
-			res.json(res_page);
+			await pages.insert(page);
+			res.json(page);
 		} else {
 			const error = new Error(result.error);
 			res.status(422);
@@ -38,7 +38,7 @@ const post = async (req, res, next) => {
 		}
 
 	} catch (error) {
-		res.status(res.statusCode === 200 ? 500 : res.statusCode);
+		res.status(500);
 		next(error);
 	}
 };
