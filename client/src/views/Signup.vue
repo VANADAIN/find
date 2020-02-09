@@ -47,7 +47,7 @@
         <div class="form-group col-md-6">
           <h5 for="password">Password</h5>
           <input
-            :type="passwordFieldType"
+            type="password"
             v-model="user.password"
             class="form-control"
             placeholder="Password"
@@ -61,7 +61,7 @@
         <div class="form-group col-md-6">
           <h5 for="confirmPassword">Confirm Password</h5>
           <input
-            :type="passwordFieldType"
+            type="password"
             v-model="user.confirmPassword"
             class="form-control"
             placeholder="Confirm Password"
@@ -77,6 +77,8 @@
         class="btn btn-primary"
         @click="changeVisibility()"
       >{{ passwordButton }}</button>
+      <br />
+      <br />
 
       <button type="submit" class="btn btn-primary" @click="signup()">Submit</button>
     </form>
@@ -111,8 +113,8 @@ const schema = Joi.object().keys({
 
 export default {
   data: () => ({
+    passwordButton: "Show password",
     signingUpLoad: false,
-    passwordFieldType: "password",
     errorMessage: "",
 
     user: {
@@ -134,12 +136,16 @@ export default {
 
   methods: {
     changeVisibility() {
-      if (this.passwordFieldType === "password") {
-        this.passwordFieldType = "text";
-        this.btnText = "Hide Password";
+      const confirmPasswordField = document.querySelector("#confirmPassword");
+      const passwordField = document.querySelector("#password");
+      if (passwordField.getAttribute("type") === "password") {
+        passwordField.setAttribute("type", "text");
+        confirmPasswordField.setAttribute("type", "text");
+        this.passwordButton = "Hide Password";
       } else {
-        this.passwordFieldType = "password";
-        this.btnText = "Show Password";
+        passwordField.setAttribute("type", "password");
+        confirmPasswordField.setAttribute("type", "password");
+        this.passwordButton = "Show Password";
       }
     },
 

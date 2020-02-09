@@ -8,7 +8,7 @@
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
 
-    <form v-if="!loggingInLoad">
+    <div v-if="!loggingInLoad">
       <div class="form-group">
         <h5 for="username">Username</h5>
         <input
@@ -26,7 +26,7 @@
       <div class="form-group">
         <h5 for="password">Password</h5>
         <input
-          :type="passwordFieldType"
+          type="password"
           v-model="user.password"
           class="form-control"
           placeholder="Password"
@@ -37,15 +37,11 @@
         <p id="passwordHelp" class="form-text text-muted">Enter your password.</p>
       </div>
 
-      <button
-        type="password"
-        class="btn btn-primary"
-        @click="changeVisibility()"
-      >{{ passwordButton }}</button>
+      <button class="btn btn-primary" @click="changeVisibility()">{{ passwordButton }}</button>
       <br />
       <br />
-      <button type="submit" class="btn btn-primary" @click="login()">Submit</button>
-    </form>
+      <button class="btn btn-primary" @click="login()">Submit</button>
+    </div>
   </div>
 </template>
 
@@ -70,7 +66,6 @@ const LOGIN_URL = "http://localhost:5000/auth/login";
 export default {
   data: () => ({
     passwordButton: "Show",
-    passwordFieldType: "password",
     loggingInLoad: false,
     errorMessage: "",
 
@@ -91,12 +86,13 @@ export default {
 
   methods: {
     changeVisibility() {
-      if (this.passwordFieldType === "password") {
-        this.passwordFieldType = "text";
-        this.btnText = "Hide Password";
+      const passwordField = document.querySelector("#password");
+      if (passwordField.getAttribute("type") === "password") {
+        passwordField.setAttribute("type", "text");
+        this.passwordButton = "Hide Password";
       } else {
-        this.passwordFieldType = "password";
-        this.btnText = "Show Password";
+        passwordField.setAttribute("type", "password");
+        this.passwordButton = "Show Password";
       }
     },
 
