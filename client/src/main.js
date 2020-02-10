@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import 'bootswatch/dist/darkly/bootstrap.css'
-
+import 'materialize-css/dist/css/materialize.css'
+import 'materialize-css/dist/js/materialize'
+import 'material-icons'
 import App from './App.vue'
 import router from './router'
 

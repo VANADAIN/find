@@ -1,27 +1,33 @@
 <template>
-  <div class="home text-center">
-    <div class="jumbotron">
-      <h1 class="display-3">Authentication</h1>
-      <p class="lead">
-        Be a part of society right now!
-      </p>
-      <hr class="my-4">
-      <p>
-        Have a great day!
-      </p>
-      <p class="lead">
-        <router-link
-        :to="{ name: 'signup' }"
-        class="btn btn-primary btn-lg" 
-        href="#" 
-        role="button">Sign Up</router-link>
-      </p>
+  <div class="col s12 m6 text-center">
+    <div class="card">
+      <div class="card-content">
+        <span id="bigtext" class="card-title">Authentication</span>
+        <p id="smalltext">
+          Be a part of FindYourMusic right now!
+          Have a great day!
+        </p>
+      </div>
+      <div id="field" class="card-action">
+        <router-link :to="{ name: 'signup' }" role="button">Sign Up</router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home'
-}
+  name: "home"
+};
 </script>
+
+<style lang="css">
+#bigtext {
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+#smalltext {
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+</style>
