@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="grey darken-3">
+  <div id="app">
     <nav>
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo">Logo</a>
@@ -52,4 +52,8 @@ export default {};
 </script>
 
 <style>
+body,
+html {
+  background-color: #424242;
+}
 </style>

@@ -286,7 +286,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   padding-top: 40px;
 }

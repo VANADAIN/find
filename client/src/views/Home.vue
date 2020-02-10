@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 #bigtext {
   font-size: 40px;
   padding-bottom: 20px;
