@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav>
+    <nav class="blue-grey darken-3">
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo">Logo</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">

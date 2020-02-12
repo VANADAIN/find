@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="text-center">Sign Up</h1>
+  <div class="white-text">
+    <h1 class="center signup_title">Sign Up</h1>
 
     <div v-if="signingUpLoad">
       <img src="../assets/eclipse_loading.svg" alt="img" />
@@ -10,7 +10,6 @@
 
     <form v-if="!signingUpLoad">
       <div class="form-group">
-        <h5 for="email">Email address</h5>
         <input
           v-model="user.email"
           type="email"
@@ -27,7 +26,6 @@
       </div>
 
       <div class="form-group">
-        <h5 for="username">Username</h5>
         <input
           type="text"
           v-model="user.username"
@@ -45,7 +43,6 @@
 
       <div class="form-row">
         <div class="form-group col-md-6">
-          <h5 for="password">Password</h5>
           <input
             type="password"
             v-model="user.password"
@@ -59,7 +56,6 @@
         </div>
 
         <div class="form-group col-md-6">
-          <h5 for="confirmPassword">Confirm Password</h5>
           <input
             type="password"
             v-model="user.confirmPassword"
@@ -218,3 +214,20 @@ export default {
 };
 </script>
 
+<style lang="css" scoped>
+.signup_title {
+  font-size: 40px;
+  text-decoration: underline;
+  margin-bottom: 40px;
+}
+p {
+  padding-bottom: 40px;
+  margin: 0px;
+}
+h5 {
+  margin: 0px;
+}
+input {
+  margin: 0px;
+}
+</style>

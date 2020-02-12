@@ -1,7 +1,7 @@
 <template>
   <div class="col s12 m6 text-center">
-    <div class="card">
-      <div class="card-content">
+    <div class="card blue-grey darken-2" id="main-card">
+      <div class="card-content white-text">
         <span id="bigtext" class="card-title">Authentication</span>
         <p id="smalltext">
           Be a part of FindYourMusic right now!
@@ -29,5 +29,6 @@ export default {
 #smalltext {
   font-size: 20px;
   padding-bottom: 5px;
+  font-weight: 10;
 }
 </style>
