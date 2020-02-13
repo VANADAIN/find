@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="text-center">Login</h1>
+  <div class="white-text">
+    <h1 class="center login_title">Login</h1>
 
     <div v-if="loggingInLoad">
       <img src="../assets/eclipse_loading.svg" alt="img" />
@@ -10,7 +10,6 @@
 
     <div v-if="!loggingInLoad">
       <div class="form-group">
-        <h5 for="username">Username</h5>
         <input
           type="text"
           v-model="user.username"
@@ -24,7 +23,6 @@
       </div>
 
       <div class="form-group">
-        <h5 for="password">Password</h5>
         <input
           type="password"
           v-model="user.password"
@@ -65,7 +63,7 @@ const LOGIN_URL = "http://localhost:5000/auth/login";
 
 export default {
   data: () => ({
-    passwordButton: "Show",
+    passwordButton: "Show password",
     loggingInLoad: false,
     errorMessage: "",
 
@@ -159,3 +157,19 @@ export default {
   }
 };
 </script>
+
+<style lang="css" scoped>
+.login_title {
+  font-size: 40px;
+  text-decoration: underline;
+  margin-bottom: 40px;
+}
+p {
+  padding-bottom: 40px;
+  margin: 0px;
+}
+input {
+  margin: 0px;
+  color: white;
+}
+</style>

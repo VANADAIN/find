@@ -224,10 +224,8 @@ p {
   padding-bottom: 40px;
   margin: 0px;
 }
-h5 {
-  margin: 0px;
-}
 input {
   margin: 0px;
+  color: white;
 }
 </style>
