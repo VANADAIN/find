@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12">
-    <h1>Dashboard</h1>
+  <div class="col-12 white-text">
+    <h1 class="dashboard-title">Dashboard</h1>
     <h1 v-if="!user">Getting user info...</h1>
     <h1 v-if="user">Hello, {{ user.username }}</h1>
     <button @click="logout()" class="btn btn-primary">Logout</button>
@@ -10,7 +10,6 @@
 
     <form class="main col-6" v-if="showForm" @submit.prevent="addPage()">
       <div class="form-group">
-        <label for="name">Name</label>
         <input
           v-model="newPage.name"
           type="text"
@@ -20,11 +19,9 @@
           placeholder="Name"
           required
         />
-        <small id="namehelp" class="form-text text-muted">Enter your name</small>
       </div>
 
       <div class="form-group">
-        <label for="age">Age</label>
         <input
           min="0"
           step="1"
@@ -36,27 +33,23 @@
           placeholder="Age"
           required
         />
-        <small id="agehelp" class="form-text text-muted">Enter your age</small>
       </div>
 
       <div class="form-group">
-        <label for="experience">Years of experience</label>
         <input
           min="0"
           step="1"
           v-model="newPage.experience"
           type="number"
           class="form-control"
-          id="experience"
+          id="Years of experience"
           aria-describedby="experiencehelp"
           placeholder="Experience"
           required
         />
-        <small id="experiencehelp" class="form-text text-muted">Enter your experience</small>
       </div>
 
       <div>
-        <label for="genre">Genre</label>
         <v-select
           class="input_form"
           id="genre"
@@ -71,7 +64,6 @@
       </div>
 
       <div>
-        <label for="main_instrument">Main Instrument</label>
         <v-select
           class="input_form"
           id="main_instrument"
@@ -91,7 +83,6 @@
       </div>
 
       <div>
-        <label for="second_instrument">Main Instrument</label>
         <v-select
           class="input_form"
           id="second_instrument"
@@ -111,7 +102,6 @@
       </div>
 
       <div>
-        <label for="public">Have you performed in public?</label>
         <v-select
           class="input_form"
           id="public"
@@ -125,15 +115,12 @@
         </v-select>
       </div>
 
-      <!-- rewrite with genre style -->
-
       <div class="form-group">
         <label for="note">Additional info:</label>
         <textarea v-model="newPage.note" id="note" class="form-control" rows="10"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="avatar_link">Avatar link</label>
         <input
           v-model="newPage.avatar_link"
           type="text"
@@ -142,11 +129,10 @@
           aria-describedby="avatar_linkhelp"
           placeholder="Avatar link"
         />
-        <small id="avatar_linkhelp" class="form-text text-muted">Add link for your page avatar</small>
+        <small id="avatar_linkhelp" class="form-text text-muted">Add link for your card avatar</small>
       </div>
 
       <div class="form-group">
-        <label for="youtube">Youtube link</label>
         <input
           v-model="newPage.youtube"
           type="text"
@@ -181,6 +167,12 @@
     </section>
   </div>
 </template>
+
+<script>
+$(document).ready(function() {
+  $("select").formSelect();
+});
+</script>
 
 <script>
 import MarkdownIt from "markdown-it";
@@ -287,14 +279,27 @@ export default {
 </script>
 
 <style scoped>
+section {
+  margin-top: 100px;
+}
+
+p {
+  padding-bottom: 40px;
+  margin: 0px;
+}
+
 .main {
   padding-top: 40px;
 }
+.form-control {
+  color: white;
+}
+input[class="vs__search"]::-webkit-input-placeholder {
+  color: #d1d1d1; /* Цвет подсказывающего текста */
+}
 .input_form {
-  margin-bottom: 24px;
-  background-color: #fff;
-  border: 1px solid #222;
-  border-radius: 0.25rem;
+  color: white;
+  background-color: #424242;
   font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.5;

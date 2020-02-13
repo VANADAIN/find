@@ -2,6 +2,7 @@ import Vue from 'vue'
 import 'materialize-css/dist/css/materialize.css'
 import 'materialize-css/dist/js/materialize'
 import 'material-icons'
+import 'jquery'
 import App from './App.vue'
 import router from './router'
 
