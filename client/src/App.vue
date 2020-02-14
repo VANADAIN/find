@@ -1,61 +1,47 @@
 <template>
   <div id="app">
     <v-app>
-      <nav class="blue-grey darken-3">
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Logo</a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-            <i class="material-icons">menu</i>
-          </a>
-          <ul class="right hide-on-med-and-down">
-            <li>
-              <a href="sass.html">Sass</a>
-            </li>
-            <li>
-              <a href="badges.html">Components</a>
-            </li>
-            <li>
-              <a href="collapsible.html">Javascript</a>
-            </li>
-            <li>
-              <a href="mobile.html">Mobile</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <v-navigation-drawer v-model="drawer" app clipped>
+        <v-list dense>
+          <v-list-item>
+            <v-list-item-action>
+              <v-icon>mdi-widgets</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Dashboard</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-action>
+              <v-icon>mdi-wrench</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Settings</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
 
-      <ul class="sidenav" id="mobile-demo">
-        <li id="inner">
-          <a href="sass.html">Sass</a>
-        </li>
-        <li id="inner">
-          <a href="badges.html">Components</a>
-        </li>
-        <li id="inner">
-          <a href="collapsible.html">Javascript</a>
-        </li>
-        <li id="inner">
-          <a href="mobile.html">Mobile</a>
-        </li>
-      </ul>
-
-      <router-view class="container pt-4" />
+      <v-app-bar app clipped-left>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>Application</v-toolbar-title>
+      </v-app-bar>
+      <router-view class=".d-flex" />
     </v-app>
   </div>
 </template>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var elems = document.querySelectorAll(".sidenav");
-  var options = document.querySelectorAll("#inner");
-  var instances = M.Sidenav.init(elems, options);
-});
-export default {};
+export default {
+  data: () => ({
+    drawer: null
+  }),
+
+  methods: {
+    menuItems() {
+      return this.menu;
+    }
+  }
+};
 </script>
 
-<style>
-body,
-html {
-  background-color: #424242;
-}
-</style>

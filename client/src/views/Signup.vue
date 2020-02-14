@@ -1,5 +1,5 @@
 <template>
-  <div class="white-text">
+  <div class="white-text mx-auto">
     <h1 class="center signup_title">Sign Up</h1>
 
     <div v-if="signingUpLoad">

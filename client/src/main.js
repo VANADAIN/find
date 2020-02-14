@@ -1,7 +1,4 @@
 import Vue from 'vue'
-import 'materialize-css/dist/css/materialize.css'
-import 'materialize-css/dist/js/materialize'
-import 'material-icons'
 import 'jquery'
 import App from './App.vue'
 import router from './router'
@@ -12,7 +9,10 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 
 new Vue({
-  vuetify: new Vuetify(),
+  vuetify: new Vuetify({
+    theme: { dark: true }
+  }
+  ),
   router,
   render: h => h(App)
 }).$mount('#app')

@@ -1,18 +1,16 @@
 <template>
-  <div class="col s12 m6 text-center">
-    <div class="card blue-grey darken-2" id="main-card">
-      <div class="card-content white-text">
-        <span id="bigtext" class="card-title">Authentication</span>
-        <p id="smalltext">
-          Be a part of FindYourMusic right now!
-          Have a great day!
-        </p>
-      </div>
-      <div id="field" class="card-action">
-        <router-link :to="{ name: 'signup' }" role="button">Sign Up</router-link>
-      </div>
-    </div>
-  </div>
+  <v-card id="main-card" class="mx-auto" outlined>
+    <v-list-item three-line>
+      <v-list-item-content>
+        <v-list-item-title class="headline mb-1">Welcome to FindYourMusic! Be a part of our society!</v-list-item-title>
+        <v-list-item-subtitle>FindYourMusic is a service for all musicians to find each other!</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-card-actions>
+      <v-btn text :to="{name: 'signup'}">Sign Up</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -22,13 +20,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#bigtext {
-  font-size: 40px;
-  padding-bottom: 20px;
-}
-#smalltext {
-  font-size: 20px;
-  padding-bottom: 5px;
-  font-weight: 10;
+#main-card {
+  margin-top: 80px;
 }
 </style>
