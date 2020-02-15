@@ -1,6 +1,6 @@
 <template>
-  <div class="white-text mx-auto">
-    <h1 class="center signup_title">Sign Up</h1>
+  <div class="mx-auto">
+    <h1 class="signup_title">Sign Up</h1>
 
     <div v-if="signingUpLoad">
       <img src="../assets/eclipse_loading.svg" alt="img" />
@@ -10,31 +10,11 @@
 
     <form v-if="!signingUpLoad">
       <div class="form-group">
-        <input
-          v-model="user.email"
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="Email"
-          aria-describedby="emailHelp"
-          required
-        />
-        <p
-          id="emailHelp"
-          class="form-text text-muted"
-        >We'll never share your email with anyone else.</p>
+        <v-text-field v-model="user.email" label="Email" :rules="rules"></v-text-field>
       </div>
 
       <div class="form-group">
-        <input
-          type="text"
-          v-model="user.username"
-          class="form-control"
-          id="username"
-          placeholder="Username"
-          aria-describedby="usernameHelp"
-          required
-        />
+        <v-text-field v-model="user.username" label="Username" :rules="username_rules"></v-text-field>
         <p id="usernameHelp" class="form-text text-muted">
           Must be at least 3 characters.
           Use only alpanumeric characters and under_scores.
@@ -42,29 +22,25 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <input
+        <div class="form-group">
+          <v-text-field
             type="password"
-            v-model="user.password"
-            class="form-control"
-            placeholder="Password"
-            aria-describedby="passwordHelp"
             id="password"
-            required
-          />
+            v-model="user.password"
+            label="Password"
+            :rules="password_rules"
+          ></v-text-field>
           <p id="passwordHelp" class="form-text text-muted">Must be at least 8 characters.</p>
         </div>
 
-        <div class="form-group col-md-6">
-          <input
+        <div class="form-group">
+          <v-text-field
+            id="confirmPassword"
             type="password"
             v-model="user.confirmPassword"
-            class="form-control"
-            placeholder="Confirm Password"
-            aria-describedby="confirmPasswordHelp"
-            id="confirmPassword"
-            required
-          />
+            label="Confirm Password"
+            :rules="password_rules"
+          ></v-text-field>
           <p id="confirmPasswordHelp" class="form-text text-muted">Confirm your password.</p>
         </div>
       </div>
@@ -91,20 +67,16 @@ const schema = Joi.object().keys({
     .trim()
     .regex(/(^[a-zA-Z0-9_]*$)/)
     .min(3)
-    .max(30)
-    .required(),
+    .max(30),
   email: Joi.string()
     .trim()
-    .email()
-    .required(),
+    .email(),
   password: Joi.string()
     .trim()
-    .min(8)
-    .required(),
+    .min(8),
   confirmPassword: Joi.string()
     .trim()
     .min(8)
-    .required()
 });
 
 export default {
@@ -118,7 +90,17 @@ export default {
       username: "",
       password: "",
       confirmPassword: ""
-    }
+    },
+
+    rules: [value => !!value || "Required."],
+    username_rules: [
+      value => !!value || "Required.",
+      value => value.length >= 3 || "Username must be more than 8 characters"
+    ],
+    password_rules: [
+      value => !!value || "Required.",
+      value => value.length >= 8 || "Username must be more than 8 characters"
+    ]
   }),
 
   watch: {

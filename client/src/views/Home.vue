@@ -8,7 +8,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text :to="{name: 'signup'}">Sign Up</v-btn>
+      <v-btn class="card-button" text :to="{name: 'signup'}">Sign Up</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -22,5 +22,10 @@ export default {
 <style lang="css" scoped>
 #main-card {
   margin-top: 80px;
+}
+.card-button {
+  background-color: #ef6c00;
+  margin-left: 8px;
+  margin-bottom: 8px;
 }
 </style>
