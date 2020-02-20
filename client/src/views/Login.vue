@@ -1,6 +1,6 @@
 <template>
-  <div class="white-text">
-    <h1 class="center login_title">Login</h1>
+  <div class="mx-auto login">
+    <h1 class="login-title">Login</h1>
 
     <div v-if="loggingInLoad">
       <img src="../assets/eclipse_loading.svg" alt="img" />
@@ -10,35 +10,25 @@
 
     <div v-if="!loggingInLoad">
       <div class="form-group">
-        <input
-          type="text"
-          v-model="user.username"
-          class="form-control"
-          id="username"
-          placeholder="Username"
-          aria-describedby="usernameHelp"
-          required
-        />
+        <v-text-field v-model="user.username" label="Username" :rules="rules"></v-text-field>
         <p id="usernameHelp" class="form-text text-muted">Enter your username.</p>
       </div>
 
       <div class="form-group">
-        <input
-          type="password"
+        <v-text-field
           v-model="user.password"
-          class="form-control"
-          placeholder="Password"
-          aria-describedby="passwordHelp"
+          type="password"
           id="password"
-          required
-        />
+          label="Password"
+          :rules="rules"
+        ></v-text-field>
         <p id="passwordHelp" class="form-text text-muted">Enter your password.</p>
       </div>
 
-      <button class="btn btn-primary" @click="changeVisibility()">{{ passwordButton }}</button>
+      <v-btn color="teal darken-4" class="button" @click="changeVisibility()">{{ passwordButton }}</v-btn>
       <br />
       <br />
-      <button class="btn btn-primary" @click="login()">Submit</button>
+      <v-btn color="teal darken-4" class="button" @click="login()">Submit</v-btn>
     </div>
   </div>
 </template>
@@ -70,7 +60,9 @@ export default {
     user: {
       username: "",
       password: ""
-    }
+    },
+
+    rules: [value => !!value || "Required."]
   }),
 
   watch: {
@@ -159,17 +151,25 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.login_title {
+.login-title {
   font-size: 40px;
   text-decoration: underline;
   margin-bottom: 40px;
+  margin-top: 100px;
+  color: #ffffff;
+  opacity: 65%;
+}
+.login {
+  min-width: 320px;
 }
 p {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   margin: 0px;
+  color: #ffffff;
+  opacity: 65%;
 }
-input {
-  margin: 0px;
-  color: white;
+.button {
+  color: #ffffff;
+  opacity: 65%;
 }
 </style>

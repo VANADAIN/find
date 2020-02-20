@@ -2,7 +2,9 @@
   <v-card id="main-card" class="mx-auto" outlined>
     <v-list-item three-line>
       <v-list-item-content>
-        <v-list-item-title class="headline mb-1">Welcome to FindYourMusic! Be a part of our society!</v-list-item-title>
+        <v-list-item-title
+          class="headline mb-1 welcome"
+        >Welcome to FindYourMusic! Be a part of our society!</v-list-item-title>
         <v-list-item-subtitle>FindYourMusic is a service for all musicians to find each other!</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -24,8 +26,13 @@ export default {
   margin-top: 80px;
 }
 .card-button {
-  background-color: #ef6c00;
+  background-color: #004d40;
   margin-left: 8px;
   margin-bottom: 8px;
+  color: antiquewhite;
+}
+.welcome {
+  color: #ffffff;
+  opacity: 65%;
 }
 </style>

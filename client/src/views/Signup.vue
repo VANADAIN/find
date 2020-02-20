@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto">
+  <div class="mx-auto signup">
     <h1 class="signup_title">Sign Up</h1>
 
     <div v-if="signingUpLoad">
@@ -44,15 +44,16 @@
           <p id="confirmPasswordHelp" class="form-text text-muted">Confirm your password.</p>
         </div>
       </div>
-      <button
+      <v-btn
+        color="teal darken-4"
         type="password"
-        class="btn btn-primary"
+        class="btn"
         @click="changeVisibility()"
-      >{{ passwordButton }}</button>
+      >{{ passwordButton }}</v-btn>
       <br />
       <br />
 
-      <button type="submit" class="btn btn-primary" @click="signup()">Submit</button>
+      <v-btn color="teal darken-4" type="submit" class="btn" @click="signup()">Submit</v-btn>
     </form>
   </div>
 </template>
@@ -201,13 +202,21 @@ export default {
   font-size: 40px;
   text-decoration: underline;
   margin-bottom: 40px;
+  margin-top: 100px;
+  color: #ffffff;
+  opacity: 65%;
 }
 p {
   padding-bottom: 40px;
   margin: 0px;
+  color: #ffffff;
+  opacity: 65%;
 }
 input {
   margin: 0px;
   color: white;
+}
+.btn {
+  opacity: 65%;
 }
 </style>
