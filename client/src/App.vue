@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-navigation-drawer v-model="drawer" app clipped>
+      <v-navigation-drawer id="drawer" v-model="drawer" app clipped>
         <v-list dense>
           <v-list-item @click="$router.push({name: 'home'})">
             <v-list-item-action>
@@ -45,7 +45,7 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Find Your Music</v-toolbar-title>
       </v-app-bar>
-      <router-view class=".d-flex" />
+      <router-view class="d-flex" />
     </v-app>
   </div>
 </template>
@@ -59,7 +59,16 @@ export default {
   methods: {
     menuItems() {
       return this.menu;
+    },
+    redirect(page_name) {
+      $router.push({ name: page_name });
     }
   }
 };
 </script>
+
+<style scoped>
+.drawer {
+  margin-bottom: 60px;
+}
+</style>

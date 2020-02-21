@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto signup">
+  <div class="flex-column text-center justify-content-center align-center signup">
     <h1 class="signup_title">Sign Up</h1>
 
     <div v-if="signingUpLoad">
@@ -24,11 +24,13 @@
       <div class="form-row">
         <div class="form-group">
           <v-text-field
-            type="password"
             id="password"
             v-model="user.password"
             label="Password"
+            :type="show1 ? 'text' : 'password'"
             :rules="password_rules"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show1 = !show1"
           ></v-text-field>
           <p id="passwordHelp" class="form-text text-muted">Must be at least 8 characters.</p>
         </div>
@@ -36,22 +38,16 @@
         <div class="form-group">
           <v-text-field
             id="confirmPassword"
-            type="password"
             v-model="user.confirmPassword"
             label="Confirm Password"
             :rules="password_rules"
+            :type="show2 ? 'text' : 'password'"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show2 = !show2"
           ></v-text-field>
           <p id="confirmPasswordHelp" class="form-text text-muted">Confirm your password.</p>
         </div>
       </div>
-      <v-btn
-        color="teal darken-4"
-        type="password"
-        class="btn"
-        @click="changeVisibility()"
-      >{{ passwordButton }}</v-btn>
-      <br />
-      <br />
 
       <v-btn color="teal darken-4" type="submit" class="btn" @click="signup()">Submit</v-btn>
     </form>
@@ -85,6 +81,8 @@ export default {
     passwordButton: "Show password",
     signingUpLoad: false,
     errorMessage: "",
+    show1: false,
+    show2: false,
 
     user: {
       email: "",
@@ -96,11 +94,11 @@ export default {
     rules: [value => !!value || "Required."],
     username_rules: [
       value => !!value || "Required.",
-      value => value.length >= 3 || "Username must be more than 8 characters"
+      value => value.length >= 3 || "Username must be more than 3 characters"
     ],
     password_rules: [
       value => !!value || "Required.",
-      value => value.length >= 8 || "Username must be more than 8 characters"
+      value => value.length >= 8 || "Password must be more than 8 characters"
     ]
   }),
 
@@ -114,20 +112,6 @@ export default {
   },
 
   methods: {
-    changeVisibility() {
-      const confirmPasswordField = document.querySelector("#confirmPassword");
-      const passwordField = document.querySelector("#password");
-      if (passwordField.getAttribute("type") === "password") {
-        passwordField.setAttribute("type", "text");
-        confirmPasswordField.setAttribute("type", "text");
-        this.passwordButton = "Hide Password";
-      } else {
-        passwordField.setAttribute("type", "password");
-        confirmPasswordField.setAttribute("type", "password");
-        this.passwordButton = "Show Password";
-      }
-    },
-
     signup() {
       this.errorMessage = "";
       if (this.validUser()) {
@@ -207,7 +191,7 @@ export default {
   opacity: 65%;
 }
 p {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   margin: 0px;
   color: #ffffff;
   opacity: 65%;

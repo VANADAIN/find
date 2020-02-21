@@ -1,52 +1,38 @@
 <template>
-  <div class="col-12 white-text">
+  <div class="text-center flex-column align-center">
     <h1 class="dashboard-title">Dashboard</h1>
     <h1 v-if="!user">Getting user info...</h1>
     <h1 v-if="user">Hello, {{ user.username }}</h1>
-    <button @click="logout()" class="btn btn-primary">Logout</button>
+    <v-btn color="teal darken-4" @click="logout()" class="btn btn-primary">Logout</v-btn>
     <br />
     <br />
-    <button @click="showForm = !showForm" class="btn btn-primary">Create page</button>
+    <v-btn color="teal darken-4" @click="showForm = !showForm" class="btn btn-primary">Create page</v-btn>
 
-    <form class="main col-6" v-if="showForm" @submit.prevent="addPage()">
-      <div class="form-group">
-        <input
-          v-model="newPage.name"
-          type="text"
-          class="form-control"
-          id="name"
-          aria-describedby="namehelp"
-          placeholder="Name"
-          required
-        />
+    <div class="d-flex flex-column wrap" v-if="showForm" @submit.prevent="addPage()">
+      <div>
+        <v-text-field v-model="newPage.name" label="Name" :rules="rules"></v-text-field>
       </div>
 
       <div class="form-group">
-        <input
+        <v-text-field
           min="0"
           step="1"
+          type="number"
           v-model="newPage.age"
-          type="number"
-          class="form-control"
-          id="age"
-          aria-describedby="agehelp"
-          placeholder="Age"
-          required
-        />
+          label="Age"
+          :rules="rules"
+        ></v-text-field>
       </div>
 
       <div class="form-group">
-        <input
+        <v-text-field
           min="0"
           step="1"
-          v-model="newPage.experience"
           type="number"
-          class="form-control"
-          id="Years of experience"
-          aria-describedby="experiencehelp"
-          placeholder="Experience"
-          required
-        />
+          v-model="newPage.experience"
+          label="Experience"
+          :rules="rules"
+        ></v-text-field>
       </div>
 
       <div>
@@ -117,31 +103,25 @@
 
       <div class="form-group">
         <label for="note">Additional info:</label>
-        <textarea v-model="newPage.note" id="note" class="form-control" rows="10"></textarea>
+        <v-textarea counter="200" v-model="newPage.note" id="note" class="form-control" rows="10"></v-textarea>
       </div>
 
       <div class="form-group">
-        <input
+        <v-text-field
+          id="avatar-link"
           v-model="newPage.avatar_link"
-          type="text"
-          class="form-control"
-          id="avatar_link"
-          aria-describedby="avatar_linkhelp"
-          placeholder="Avatar link"
-        />
-        <small id="avatar_linkhelp" class="form-text text-muted">Add link for your card avatar</small>
+          label="Avatar link"
+          hint="Add link for your page avatar"
+        ></v-text-field>
       </div>
 
       <div class="form-group">
-        <input
+        <v-text-field
+          id="youtube-link"
           v-model="newPage.youtube"
-          type="text"
-          class="form-control"
-          id="youtube"
-          aria-describedby="youtubehelp"
-          placeholder="Youtube link"
-        />
-        <small id="youtubehelp" class="form-text text-muted">You can add video of your performance</small>
+          label="Youtube link"
+          hint="Add link to your performance"
+        ></v-text-field>
       </div>
 
       <br />
@@ -150,8 +130,8 @@
       <br />
       <br />
 
-      <button type="submit" class="btn btn-primary">Add page</button>
-    </form>
+      <v-btn color="teal darken-4" type="submit" class="btn btn-primary">Add page</v-btn>
+    </div>
 
     <section class="row mt-3">
       <div class="col-4" v-for="page in pages" :key="page._id">
@@ -203,7 +183,8 @@ export default {
     value: null,
     mi_options: ["list", "of", "options"],
     genre_options: ["metal", "pop"],
-    public_options: ["Yes", "No"]
+    public_options: ["Yes", "No"],
+    rules: [value => !!value || "Required."]
   }),
   mounted() {
     fetch(API_URL, {
@@ -279,37 +260,29 @@ export default {
 </script>
 
 <style scoped>
+.wrap {
+  min-width: 400px;
+}
+#help {
+  color: #ffffff;
+  opacity: 65%;
+}
+.dashboard-title {
+  margin-top: 100px;
+}
+h1 {
+  color: #ffffff;
+  opacity: 65%;
+}
 section {
   margin-top: 100px;
 }
-
 p {
   padding-bottom: 40px;
   margin: 0px;
 }
-
 .main {
   padding-top: 40px;
-}
-.form-control {
-  color: white;
-}
-input[class="vs__search"]::-webkit-input-placeholder {
-  color: #d1d1d1; /* Цвет подсказывающего текста */
-}
-.input_form {
-  color: white;
-  background-color: #424242;
-  font-size: 0.9375rem;
-  font-weight: 400;
-  line-height: 1.5;
-  -webkit-transition: border-color 0.15s ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
 }
 .card {
   height: 90%;
@@ -319,4 +292,3 @@ input[class="vs__search"]::-webkit-input-placeholder {
   width: 100%;
 }
 </style>
-<style src="vue-select/dist/vue-select.css"></style>

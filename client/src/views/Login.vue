@@ -1,6 +1,6 @@
 <template>
-  <div class="mx-auto login">
-    <h1 class="login-title">Login</h1>
+  <div class="text-center flex-column align-center login">
+    <h1 class="text-center login-title">Login</h1>
 
     <div v-if="loggingInLoad">
       <img src="../assets/eclipse_loading.svg" alt="img" />
@@ -8,7 +8,7 @@
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
 
-    <div v-if="!loggingInLoad">
+    <div class="col-6" v-if="!loggingInLoad">
       <div class="form-group">
         <v-text-field v-model="user.username" label="Username" :rules="rules"></v-text-field>
         <p id="usernameHelp" class="form-text text-muted">Enter your username.</p>
@@ -17,17 +17,16 @@
       <div class="form-group">
         <v-text-field
           v-model="user.password"
-          type="password"
           id="password"
           label="Password"
           :rules="rules"
+          :type="show2 ? 'text' : 'password'"
+          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="show2 = !show2"
         ></v-text-field>
         <p id="passwordHelp" class="form-text text-muted">Enter your password.</p>
       </div>
 
-      <v-btn color="teal darken-4" class="button" @click="changeVisibility()">{{ passwordButton }}</v-btn>
-      <br />
-      <br />
       <v-btn color="teal darken-4" class="button" @click="login()">Submit</v-btn>
     </div>
   </div>
@@ -56,7 +55,7 @@ export default {
     passwordButton: "Show password",
     loggingInLoad: false,
     errorMessage: "",
-
+    show2: false,
     user: {
       username: "",
       password: ""
@@ -75,17 +74,6 @@ export default {
   },
 
   methods: {
-    changeVisibility() {
-      const passwordField = document.querySelector("#password");
-      if (passwordField.getAttribute("type") === "password") {
-        passwordField.setAttribute("type", "text");
-        this.passwordButton = "Hide Password";
-      } else {
-        passwordField.setAttribute("type", "password");
-        this.passwordButton = "Show Password";
-      }
-    },
-
     login() {
       this.errorMessage = "";
 
