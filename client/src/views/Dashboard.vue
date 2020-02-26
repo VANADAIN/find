@@ -3,7 +3,7 @@
     <h1 class="dashboard-title">Dashboard</h1>
     <h1 v-if="!user">Getting user info...</h1>
     <h1 v-if="user">Hello, {{ user.username }}</h1>
-    <v-btn color="teal darken-4" @click="logout()" class="btn btn-primary">Logout</v-btn>
+    <v-btn id="logout" color="teal darken-4" @click="logout()" class="btn btn-primary">Logout</v-btn>
     <br />
     <br />
     <v-btn color="teal darken-4" @click="showForm = !showForm" class="btn btn-primary">Create page</v-btn>
@@ -36,72 +36,49 @@
       </div>
 
       <div>
-        <v-select
+        <v-autocomplete
           class="input_form"
           id="genre"
           v-model="newPage.genre"
-          :options="genre_options"
-          placeholder="Genre"
-        >
-          <template #search="{attributes, events}">
-            <input class="vs__search" :required="!newPage.genre" v-bind="attributes" v-on="events" />
-          </template>
-        </v-select>
+          :items="genre_options"
+          label="Genre"
+          :rules="rules"
+        ></v-autocomplete>
       </div>
 
       <div>
-        <v-select
+        <v-autocomplete
           class="input_form"
           id="main_instrument"
           v-model="newPage.main_instrument"
-          :options="mi_options"
-          placeholder="Main Instrument"
-        >
-          <template #search="{attributes, events}">
-            <input
-              class="vs__search"
-              :required="!newPage.main_instrument"
-              v-bind="attributes"
-              v-on="events"
-            />
-          </template>
-        </v-select>
+          :items="mi_options"
+          label="Main Instrument"
+          :rules="rules"
+        ></v-autocomplete>
       </div>
 
       <div>
-        <v-select
+        <v-autocomplete
           class="input_form"
           id="second_instrument"
           v-model="newPage.second_instrument"
-          :options="mi_options"
-          placeholder="Second instrument"
-        >
-          <template #search="{attributes, events}">
-            <input
-              class="vs__search"
-              :required="!newPage.second_instrument"
-              v-bind="attributes"
-              v-on="events"
-            />
-          </template>
-        </v-select>
+          :items="mi_options"
+          label="Second instrument"
+        ></v-autocomplete>
       </div>
 
       <div>
-        <v-select
+        <v-autocomplete
           class="input_form"
           id="public"
           v-model="newPage.public"
-          :options="public_options"
-          placeholder="Public performances"
-        >
-          <template #search="{attributes, events}">
-            <input class="vs__search" :required="!newPage.public" v-bind="attributes" v-on="events" />
-          </template>
-        </v-select>
+          :items="public_options"
+          label="Public performances"
+          :rules="rules"
+        ></v-autocomplete>
       </div>
 
-      <div class="form-group">
+      <div id="add" class="form-group">
         <label for="note">Additional info:</label>
         <v-textarea counter="200" v-model="newPage.note" id="note" class="form-control" rows="10"></v-textarea>
       </div>
@@ -263,9 +240,15 @@ export default {
 .wrap {
   min-width: 400px;
 }
+#logout {
+  margin-top: 20px;
+}
 #help {
   color: #ffffff;
   opacity: 65%;
+}
+#add {
+  margin-top: 20px;
 }
 .dashboard-title {
   margin-top: 100px;
@@ -290,5 +273,9 @@ p {
 }
 .card-text img {
   width: 100%;
+}
+label {
+  color: #ffffff;
+  opacity: 65%;
 }
 </style>

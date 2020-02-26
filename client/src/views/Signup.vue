@@ -44,6 +44,7 @@
             :type="show2 ? 'text' : 'password'"
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="show2 = !show2"
+            v-on:keyup.enter="signup()"
           ></v-text-field>
           <p id="confirmPasswordHelp" class="form-text text-muted">Confirm your password.</p>
         </div>
