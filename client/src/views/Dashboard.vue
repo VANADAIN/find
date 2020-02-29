@@ -107,29 +107,51 @@
       <br />
       <br />
 
-      <v-btn color="teal darken-4" type="submit" class="btn btn-primary">Add page</v-btn>
+      <v-btn color="teal darken-4" type="submit" @click="addPage()" class="btn btn-primary">Add page</v-btn>
     </div>
 
-    <section class="row mt-3">
-      <div class="col-4" v-for="page in pages" :key="page._id">
-        <div class="card border-dark mb-3">
-          <div class="card-header">Header</div>
-          <div class="card-body">
-            <h4 class="card-title">{{ page.name }}</h4>
-            <p class="card-text" v-html="renderMarkDown(page.note)">{{ page.note }}</p>
-            <!--  -->
-          </div>
-        </div>
-      </div>
-    </section>
+    <v-card v-for="page in pages" :key="page.id" class="page-card">
+      <v-container>
+        <v-row justify="space-around">
+          <v-col cols="auto">
+            <v-img
+              height="270"
+              width="480"
+              v-bind:src="page.avatar_link"
+              alt="No photo"
+              contain
+              lazy-src
+            ></v-img>
+          </v-col>
+
+          <v-col class="page-info">
+            <v-row class="flex-column">
+              <v-row class="personal info-element .align-self-start">
+                <h2>{{ page.name }}, {{ page.age }} years</h2>
+              </v-row>
+
+              <v-row class="info-element .align-self-start">
+                <h4>Genre: {{ page.genre }}</h4>
+              </v-row>
+
+              <v-row class="instr info-element">
+                <h4>Main instrument: {{ page.main_instrument }}</h4>
+              </v-row>
+
+              <v-row class="info-element">
+                <h4>Experience: {{ page.experience }}</h4>
+              </v-row>
+
+              <v-row class="info-element">
+                <h4>Public performances: {{ page.public }}</h4>
+              </v-row>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
   </div>
 </template>
-
-<script>
-$(document).ready(function() {
-  $("select").formSelect();
-});
-</script>
 
 <script>
 import MarkdownIt from "markdown-it";
@@ -237,6 +259,24 @@ export default {
 </script>
 
 <style scoped>
+.page-card {
+  margin-top: 40px;
+}
+.page-info {
+  min-width: 100px;
+  margin-right: 35px;
+}
+.info-element {
+  padding: 4px;
+  color: #ffffff;
+  opacity: 65%;
+}
+.personal {
+  margin-bottom: 15px;
+}
+.instr {
+  margin-bottom: 15px;
+}
 .wrap {
   min-width: 400px;
 }
