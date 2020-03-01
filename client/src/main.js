@@ -11,7 +11,7 @@ Vue.use(Vuetify)
 
 new Vue({
   vuetify: new Vuetify({
-    theme: { dark: true }
+    theme: { dark: false }
   }
   ),
   router,

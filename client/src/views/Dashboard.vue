@@ -1,113 +1,115 @@
 <template>
-  <div class="text-center flex-column align-center">
+  <div class="text-center flex-column">
     <h1 class="dashboard-title">Dashboard</h1>
     <h1 v-if="!user">Getting user info...</h1>
     <h1 v-if="user">Hello, {{ user.username }}</h1>
-    <v-btn id="logout" color="teal darken-4" @click="logout()" class="btn btn-primary">Logout</v-btn>
+    <v-btn id="logout" color="teal" @click="logout()" class="btn btn-primary">Logout</v-btn>
     <br />
     <br />
-    <v-btn color="teal darken-4" @click="showForm = !showForm" class="btn btn-primary">Create page</v-btn>
+    <v-btn color="teal" @click="showForm = !showForm" class="btn btn-primary">Create page</v-btn>
 
-    <div class="d-flex flex-column wrap" v-if="showForm" @submit.prevent="addPage()">
-      <div>
-        <v-text-field v-model="newPage.name" label="Name" :rules="rules"></v-text-field>
+    <div class="d-flex justify-center">
+      <div class="col-6 flex-column wrap" v-if="showForm" @submit.prevent="addPage()">
+        <div>
+          <v-text-field v-model="newPage.name" label="Name" :rules="rules"></v-text-field>
+        </div>
+
+        <div class="form-group">
+          <v-text-field
+            min="0"
+            step="1"
+            type="number"
+            v-model="newPage.age"
+            label="Age"
+            :rules="rules"
+          ></v-text-field>
+        </div>
+
+        <div class="form-group">
+          <v-text-field
+            min="0"
+            step="1"
+            type="number"
+            v-model="newPage.experience"
+            label="Experience"
+            :rules="rules"
+          ></v-text-field>
+        </div>
+
+        <div>
+          <v-autocomplete
+            class="input_form"
+            id="genre"
+            v-model="newPage.genre"
+            :items="genre_options"
+            label="Genre"
+            :rules="rules"
+          ></v-autocomplete>
+        </div>
+
+        <div>
+          <v-autocomplete
+            class="input_form"
+            id="main_instrument"
+            v-model="newPage.main_instrument"
+            :items="mi_options"
+            label="Main Instrument"
+            :rules="rules"
+          ></v-autocomplete>
+        </div>
+
+        <div>
+          <v-autocomplete
+            class="input_form"
+            id="second_instrument"
+            v-model="newPage.second_instrument"
+            :items="mi_options"
+            label="Second instrument"
+          ></v-autocomplete>
+        </div>
+
+        <div>
+          <v-autocomplete
+            class="input_form"
+            id="public"
+            v-model="newPage.public"
+            :items="public_options"
+            label="Public performances"
+            :rules="rules"
+          ></v-autocomplete>
+        </div>
+
+        <div id="add" class="form-group">
+          <label for="note">Additional info:</label>
+          <v-textarea counter="200" v-model="newPage.note" id="note" class="form-control" rows="10"></v-textarea>
+        </div>
+
+        <div class="form-group">
+          <v-text-field
+            id="avatar-link"
+            v-model="newPage.avatar_link"
+            label="Avatar link"
+            hint="Add link for your page avatar"
+          ></v-text-field>
+        </div>
+
+        <div class="form-group">
+          <v-text-field
+            id="youtube-link"
+            v-model="newPage.youtube"
+            label="Youtube link"
+            hint="Add link to your performance"
+          ></v-text-field>
+        </div>
+
+        <br />
+        <br />
+        <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+        <br />
+        <br />
+
+        <v-btn color="teal" type="submit" @click="addPage()" class="btn btn-primary">Add page</v-btn>
       </div>
-
-      <div class="form-group">
-        <v-text-field
-          min="0"
-          step="1"
-          type="number"
-          v-model="newPage.age"
-          label="Age"
-          :rules="rules"
-        ></v-text-field>
-      </div>
-
-      <div class="form-group">
-        <v-text-field
-          min="0"
-          step="1"
-          type="number"
-          v-model="newPage.experience"
-          label="Experience"
-          :rules="rules"
-        ></v-text-field>
-      </div>
-
-      <div>
-        <v-autocomplete
-          class="input_form"
-          id="genre"
-          v-model="newPage.genre"
-          :items="genre_options"
-          label="Genre"
-          :rules="rules"
-        ></v-autocomplete>
-      </div>
-
-      <div>
-        <v-autocomplete
-          class="input_form"
-          id="main_instrument"
-          v-model="newPage.main_instrument"
-          :items="mi_options"
-          label="Main Instrument"
-          :rules="rules"
-        ></v-autocomplete>
-      </div>
-
-      <div>
-        <v-autocomplete
-          class="input_form"
-          id="second_instrument"
-          v-model="newPage.second_instrument"
-          :items="mi_options"
-          label="Second instrument"
-        ></v-autocomplete>
-      </div>
-
-      <div>
-        <v-autocomplete
-          class="input_form"
-          id="public"
-          v-model="newPage.public"
-          :items="public_options"
-          label="Public performances"
-          :rules="rules"
-        ></v-autocomplete>
-      </div>
-
-      <div id="add" class="form-group">
-        <label for="note">Additional info:</label>
-        <v-textarea counter="200" v-model="newPage.note" id="note" class="form-control" rows="10"></v-textarea>
-      </div>
-
-      <div class="form-group">
-        <v-text-field
-          id="avatar-link"
-          v-model="newPage.avatar_link"
-          label="Avatar link"
-          hint="Add link for your page avatar"
-        ></v-text-field>
-      </div>
-
-      <div class="form-group">
-        <v-text-field
-          id="youtube-link"
-          v-model="newPage.youtube"
-          label="Youtube link"
-          hint="Add link to your performance"
-        ></v-text-field>
-      </div>
-
-      <br />
-      <br />
-      <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
-      <br />
-      <br />
-
-      <v-btn color="teal darken-4" type="submit" @click="addPage()" class="btn btn-primary">Add page</v-btn>
     </div>
 
     <v-card v-for="page in pages" :key="page.id" class="page-card">
@@ -258,64 +260,50 @@ export default {
 };
 </script>
 
-<style scoped>
-.page-card {
-  margin-top: 40px;
-}
-.page-info {
-  min-width: 100px;
-  margin-right: 35px;
-}
-.info-element {
-  padding: 4px;
-  color: #ffffff;
-  opacity: 65%;
-}
-.personal {
-  margin-bottom: 15px;
-}
-.instr {
-  margin-bottom: 15px;
-}
-.wrap {
-  min-width: 400px;
-}
-#logout {
-  margin-top: 20px;
-}
-#help {
-  color: #ffffff;
-  opacity: 65%;
-}
-#add {
-  margin-top: 20px;
-}
-.dashboard-title {
-  margin-top: 100px;
-}
-h1 {
-  color: #ffffff;
-  opacity: 65%;
-}
-section {
-  margin-top: 100px;
-}
-p {
-  padding-bottom: 40px;
-  margin: 0px;
-}
-.main {
-  padding-top: 40px;
-}
-.card {
-  height: 90%;
-  margin-bottom: 1em;
-}
-.card-text img {
-  width: 100%;
-}
-label {
-  color: #ffffff;
-  opacity: 65%;
-}
+<style lang="sass" scoped>
+
+.page-card 
+  margin-top: 40px
+
+.page-info 
+  min-width: 100px
+  margin-right: 35px
+
+.info-element 
+  padding: 4px
+
+.personal 
+  margin-bottom: 15px
+
+.instr 
+  margin-bottom: 15px
+
+.wrap 
+  min-width: 400px
+
+#logout 
+  margin-top: 20px
+
+
+#add 
+  margin-top: 20px
+
+.dashboard-title 
+  margin-top: 100px
+
+
+section 
+  margin-top: 100px
+
+p 
+  padding-bottom: 40px
+  margin: 0px
+
+.main 
+  padding-top: 40px
+
+.card 
+  height: 90%
+  margin-bottom: 1em
+
 </style>

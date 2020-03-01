@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-column text-center justify-content-center align-center signup">
+  <div class="flex-column text-center signup">
     <h1 class="signup_title">Sign Up</h1>
 
     <div v-if="signingUpLoad">
@@ -8,50 +8,52 @@
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
 
-    <form v-if="!signingUpLoad">
-      <div class="form-group">
-        <v-text-field v-model="user.email" label="Email" :rules="rules"></v-text-field>
-      </div>
-
-      <div class="form-group">
-        <v-text-field v-model="user.username" label="Username" :rules="username_rules"></v-text-field>
-        <p id="usernameHelp" class="form-text text-muted">
-          Must be at least 3 characters.
-          Use only alpanumeric characters and under_scores.
-        </p>
-      </div>
-
-      <div class="form-row">
+    <div class="d-flex justify-center">
+      <div v-if="!signingUpLoad" class="col-6">
         <div class="form-group">
-          <v-text-field
-            id="password"
-            v-model="user.password"
-            label="Password"
-            :type="show1 ? 'text' : 'password'"
-            :rules="password_rules"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show1 = !show1"
-          ></v-text-field>
-          <p id="passwordHelp" class="form-text text-muted">Must be at least 8 characters.</p>
+          <v-text-field v-model="user.email" label="Email" :rules="rules"></v-text-field>
         </div>
 
         <div class="form-group">
-          <v-text-field
-            id="confirmPassword"
-            v-model="user.confirmPassword"
-            label="Confirm Password"
-            :rules="password_rules"
-            :type="show2 ? 'text' : 'password'"
-            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show2 = !show2"
-            v-on:keyup.enter="signup()"
-          ></v-text-field>
-          <p id="confirmPasswordHelp" class="form-text text-muted">Confirm your password.</p>
+          <v-text-field v-model="user.username" label="Username" :rules="username_rules"></v-text-field>
+          <p id="usernameHelp" class="form-text text-muted">
+            Must be at least 3 characters.
+            Use only alpanumeric characters and under_scores.
+          </p>
         </div>
-      </div>
 
-      <v-btn color="teal darken-4" type="submit" class="btn" @click="signup()">Submit</v-btn>
-    </form>
+        <div class="form-row">
+          <div class="form-group">
+            <v-text-field
+              id="password"
+              v-model="user.password"
+              label="Password"
+              :type="show1 ? 'text' : 'password'"
+              :rules="password_rules"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show1 = !show1"
+            ></v-text-field>
+            <p id="passwordHelp" class="form-text text-muted">Must be at least 8 characters.</p>
+          </div>
+
+          <div class="form-group">
+            <v-text-field
+              id="confirmPassword"
+              v-model="user.confirmPassword"
+              label="Confirm Password"
+              :rules="password_rules"
+              :type="show2 ? 'text' : 'password'"
+              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show2 = !show2"
+              v-on:keyup.enter="signup()"
+            ></v-text-field>
+            <p id="confirmPasswordHelp" class="form-text text-muted">Confirm your password.</p>
+          </div>
+        </div>
+
+        <v-btn color="teal" type="submit" class="btn" @click="signup()">Submit</v-btn>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -182,26 +184,19 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-.signup_title {
-  font-size: 40px;
-  text-decoration: underline;
-  margin-bottom: 40px;
-  margin-top: 100px;
-  color: #ffffff;
-  opacity: 65%;
-}
-p {
-  padding-bottom: 20px;
-  margin: 0px;
-  color: #ffffff;
-  opacity: 65%;
-}
-input {
-  margin: 0px;
-  color: white;
-}
-.btn {
-  opacity: 65%;
-}
+<style lang="sass" scoped>
+.signup_title 
+  font-size: 40px
+  text-decoration: underline
+  margin-bottom: 40px
+  margin-top: 100px
+
+p 
+  padding-bottom: 20px
+  margin: 0px
+
+input 
+  margin: 0px
+  color: white
+
 </style>

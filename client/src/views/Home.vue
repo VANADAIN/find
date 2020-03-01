@@ -10,7 +10,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn class="card-button" text :to="{name: 'signup'}">Sign Up</v-btn>
+      <v-btn class="card-button teal" text :to="{name: 'signup'}">Sign Up</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -21,18 +21,12 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-#main-card {
-  margin-top: 80px;
-}
-.card-button {
-  background-color: #004d40;
-  margin-left: 8px;
-  margin-bottom: 8px;
-  color: antiquewhite;
-}
-.welcome {
-  color: #ffffff;
-  opacity: 65%;
-}
+<style lang="sass" scoped>
+#main-card 
+  margin-top: 80px
+
+.card-button 
+  margin-left: 8px
+  margin-bottom: 8px
+
 </style>

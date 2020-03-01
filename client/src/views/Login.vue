@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center flex-column align-center login">
+  <div class="text-center login">
     <h1 class="text-center login-title">Login</h1>
 
     <div v-if="loggingInLoad">
@@ -8,27 +8,29 @@
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
 
-    <div class="col-6" v-if="!loggingInLoad">
-      <div class="form-group">
-        <v-text-field v-model="user.username" label="Username" :rules="rules"></v-text-field>
-        <p id="usernameHelp" class="form-text text-muted">Enter your username.</p>
-      </div>
+    <div class="d-flex justify-center">
+      <div class="col-6" v-if="!loggingInLoad">
+        <div class="form-group">
+          <v-text-field v-model="user.username" label="Username" :rules="rules"></v-text-field>
+          <p id="usernameHelp" class="form-text text-muted">Enter your username.</p>
+        </div>
 
-      <div class="form-group">
-        <v-text-field
-          v-model="user.password"
-          id="password"
-          label="Password"
-          :rules="rules"
-          :type="show2 ? 'text' : 'password'"
-          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="show2 = !show2"
-          v-on:keyup.enter="login()"
-        ></v-text-field>
-        <p id="passwordHelp" class="form-text text-muted">Enter your password.</p>
-      </div>
+        <div class="form-group">
+          <v-text-field
+            v-model="user.password"
+            id="password"
+            label="Password"
+            :rules="rules"
+            :type="show2 ? 'text' : 'password'"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show2 = !show2"
+            v-on:keyup.enter="login()"
+          ></v-text-field>
+          <p id="passwordHelp" class="form-text text-muted">Enter your password.</p>
+        </div>
 
-      <v-btn color="teal darken-4" class="button" @click="login()">Submit</v-btn>
+        <v-btn color="teal" class="button" @click="login()">Submit</v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -139,26 +141,18 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-.login-title {
-  font-size: 40px;
-  text-decoration: underline;
-  margin-bottom: 40px;
-  margin-top: 100px;
-  color: #ffffff;
-  opacity: 65%;
-}
-.login {
-  min-width: 320px;
-}
-p {
-  padding-bottom: 20px;
-  margin: 0px;
-  color: #ffffff;
-  opacity: 65%;
-}
-.button {
-  color: #ffffff;
-  opacity: 65%;
-}
+<style lang="sass" scoped>
+.login-title 
+  font-size: 40px
+  text-decoration: underline
+  margin-bottom: 40px
+  margin-top: 100px
+
+.login 
+  min-width: 320px
+
+p 
+  padding-bottom: 20px
+  margin: 0px
+
 </style>
