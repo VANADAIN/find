@@ -4,8 +4,10 @@
       <v-toolbar-title class="logo nav-text" @click="navigateTo({name: 'home'})">FindYourMusic</v-toolbar-title>
 
       <v-spacer class="col-xs-1"></v-spacer>
-      <v-switch class="toggle" v-model="$vuetify.theme.dark" label="Theme Dark"></v-switch>
+
       <v-toolbar-items class="hidden-sm-and-down">
+        <v-switch class="toggle" v-model="$vuetify.theme.dark" label="Theme Dark"></v-switch>
+        <v-btn class="nav-text" depressed @click="navigateTo({name: 'home'})">Home</v-btn>
         <v-btn class="nav-text" depressed router @click="navigateTo({name: 'dashboard'})">Dashboard</v-btn>
         <v-btn
           v-if="!$store.state.isUserLoggedIn"
@@ -19,7 +21,12 @@
           depressed
           @click="navigateTo({name: 'signup'})"
         >Sign Up</v-btn>
-        <v-btn class="nav-text" @click="logout()" depressed>Log out</v-btn>
+        <v-btn
+          v-if="$store.state.isUserLoggedIn"
+          class="nav-text"
+          @click="logout()"
+          depressed
+        >Log out</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-md-and-up">
         <v-menu bottom left>
@@ -69,10 +76,20 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="$router.push({name: 'dashboard'})">
+            <v-list-item
+              v-if="$store.state.isUserLoggedIn"
+              @click="$router.push({name: 'dashboard'})"
+            >
+              <v-list-item-action>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title @click="logout()">Logout</v-list-item-title>
               </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-switch class="toggle" v-model="$vuetify.theme.dark" label="Theme Dark"></v-switch>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -91,7 +108,7 @@ export default {
       return this.menu;
     },
     logout() {
-      this.$store.state.token = null;
+      this.$store.dispatch("setToken", null);
       this.$router.push("/login");
     }
   }
@@ -101,7 +118,7 @@ export default {
 <style lang="sass" >
 .toggle
   position: relative
-  top: 11px
+  top: 12px
   margin-right: 5px
 .white-text
   color: #ffffff

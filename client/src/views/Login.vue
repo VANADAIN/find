@@ -12,13 +12,11 @@
       <div class="col-6" v-if="!loggingInLoad">
         <div class="form-group">
           <v-text-field v-model="user.username" label="Username" :rules="rules"></v-text-field>
-          <p id="usernameHelp" class="form-text text-muted">Enter your username.</p>
         </div>
 
-        <div class="form-group">
+        <div id="password" class="form-group">
           <v-text-field
             v-model="user.password"
-            id="password"
             label="Password"
             :rules="rules"
             :type="show2 ? 'text' : 'password'"
@@ -26,7 +24,6 @@
             @click:append="show2 = !show2"
             v-on:keyup.enter="login()"
           ></v-text-field>
-          <p id="passwordHelp" class="form-text text-muted">Enter your password.</p>
         </div>
 
         <v-btn color="teal" class="button" @click="login()">Submit</v-btn>
@@ -143,6 +140,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+#password
+  margin-top: 20px
 .login-title 
   font-size: 40px
   text-decoration: underline
@@ -151,7 +150,8 @@ export default {
 
 .login 
   min-width: 320px
-
+.button
+  margin-top: 40px
 p 
   padding-bottom: 20px
   margin: 0px

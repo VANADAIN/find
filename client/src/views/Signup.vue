@@ -16,10 +16,10 @@
 
         <div class="form-group">
           <v-text-field v-model="user.username" label="Username" :rules="username_rules"></v-text-field>
-          <p id="usernameHelp" class="form-text text-muted">
-            Must be at least 3 characters.
-            Use only alpanumeric characters and under_scores.
-          </p>
+          <p
+            id="usernameHelp"
+            class="form-text text-muted"
+          >Use only alpanumeric characters and under_scores.</p>
         </div>
 
         <div class="form-row">
@@ -33,7 +33,6 @@
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show1 = !show1"
             ></v-text-field>
-            <p id="passwordHelp" class="form-text text-muted">Must be at least 8 characters.</p>
           </div>
 
           <div class="form-group">
