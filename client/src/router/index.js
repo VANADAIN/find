@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index'
 import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
@@ -8,7 +9,7 @@ import Dashboard from '../views/Dashboard.vue'
 Vue.use(VueRouter)
 
 function loggedInRedirect(to, from, next) {
-  if (localStorage.token) {
+  if (store.state.token) {
     next('/dashboard')
   } else {
     next()
@@ -16,12 +17,12 @@ function loggedInRedirect(to, from, next) {
 }
 
 function isLoggedIn(to, from, next) {
-  if (localStorage.token) {
+  if (store.state.token) {
     next()
   } else {
     next('/login')
   }
-} 
+}
 
 const routes = [
   {
@@ -47,7 +48,7 @@ const routes = [
     component: Dashboard,
     beforeEnter: isLoggedIn,
   }
-  
+
 ]
 
 const router = new VueRouter({

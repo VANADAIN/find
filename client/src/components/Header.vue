@@ -7,9 +7,19 @@
       <v-switch class="toggle" v-model="$vuetify.theme.dark" label="Theme Dark"></v-switch>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn class="nav-text" depressed router @click="navigateTo({name: 'dashboard'})">Dashboard</v-btn>
-        <v-btn class="nav-text" depressed @click="navigateTo({name: 'login'})">Login</v-btn>
-        <v-btn class="nav-text" depressed @click="navigateTo({name: 'signup'})">Sign Up</v-btn>
-        <v-btn class="nav-text" depressed>Log out</v-btn>
+        <v-btn
+          v-if="!$store.state.isUserLoggedIn"
+          class="nav-text"
+          depressed
+          @click="navigateTo({name: 'login'})"
+        >Login</v-btn>
+        <v-btn
+          v-if="!$store.state.isUserLoggedIn"
+          class="nav-text"
+          depressed
+          @click="navigateTo({name: 'signup'})"
+        >Sign Up</v-btn>
+        <v-btn class="nav-text" @click="logout()" depressed>Log out</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-md-and-up">
         <v-menu bottom left>
@@ -29,7 +39,10 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="$router.push({name: 'signup'})">
+            <v-list-item
+              v-if="!$store.state.isUserLoggedIn"
+              @click="$router.push({name: 'signup'})"
+            >
               <v-list-item-action>
                 <v-icon>mdi-checkbox-marked-circle</v-icon>
               </v-list-item-action>
@@ -38,7 +51,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="$router.push({name: 'login'})">
+            <v-list-item v-if="!$store.state.isUserLoggedIn" @click="$router.push({name: 'login'})">
               <v-list-item-action>
                 <v-icon>mdi-account</v-icon>
               </v-list-item-action>
@@ -53,6 +66,12 @@
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>Dashboard</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item @click="$router.push({name: 'dashboard'})">
+              <v-list-item-content>
+                <v-list-item-title @click="logout()">Logout</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -70,6 +89,10 @@ export default {
     },
     menuItems() {
       return this.menu;
+    },
+    logout() {
+      this.$store.state.token = null;
+      this.$router.push("/login");
     }
   }
 };

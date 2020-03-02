@@ -190,7 +190,7 @@ export default {
   mounted() {
     fetch(API_URL, {
       headers: {
-        authorization: `Bearer ${localStorage.token}`
+        authorization: `Bearer ${this.$store.state.token}`
       }
     })
       .then(res => res.json())
@@ -205,7 +205,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("token");
+      this.$store.state.token = null;
       this.$router.push("/login");
     },
     renderMarkDown(page) {
@@ -214,7 +214,7 @@ export default {
     getPages() {
       fetch(`${API_URL}api/pages`, {
         headers: {
-          authorization: `Bearer ${localStorage.token}`
+          authorization: `Bearer ${this.$store.state.token}`
         }
       })
         .then(res => res.json())

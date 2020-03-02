@@ -1,5 +1,5 @@
 <template>
-  <v-card id="main-card" class="mx-auto" outlined>
+  <v-card class="col-6" outlined>
     <v-list-item three-line>
       <v-list-item-content>
         <v-list-item-title
@@ -22,8 +22,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-#main-card 
-  margin-top: 80px
 
 .card-button 
   margin-left: 8px

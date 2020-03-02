@@ -105,7 +105,8 @@ export default {
           })
           .then(result => {
             // correct info
-            localStorage.token = result.token;
+            this.$store.dispatch("setToken", result.token);
+            // localStorage.token = result.token;
 
             setTimeout(() => {
               this.loggingInLoad = false;
