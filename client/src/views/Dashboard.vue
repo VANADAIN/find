@@ -190,7 +190,7 @@ export default {
   mounted() {
     fetch(API_URL, {
       headers: {
-        authorization: `Bearer ${this.$store.state.token}`
+        authorization: `Bearer ${localStorage.token}`
       }
     })
       .then(res => res.json())
@@ -205,7 +205,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.state.token = null;
+      localStorage.removeItem("token");
+      this.$store.dispatch("setToken", null);
       this.$router.push("/login");
     },
     renderMarkDown(page) {
@@ -214,7 +215,7 @@ export default {
     getPages() {
       fetch(`${API_URL}api/pages`, {
         headers: {
-          authorization: `Bearer ${this.$store.state.token}`
+          authorization: `Bearer ${localStorage.token}`
         }
       })
         .then(res => res.json())
@@ -262,48 +263,47 @@ export default {
 
 <style lang="sass" scoped>
 
-.page-card 
+.page-card
   margin-top: 40px
 
-.page-info 
+.page-info
   min-width: 100px
   margin-right: 35px
 
-.info-element 
+.info-element
   padding: 4px
 
-.personal 
+.personal
   margin-bottom: 15px
 
-.instr 
+.instr
   margin-bottom: 15px
 
-.wrap 
+.wrap
   min-width: 400px
 
-#logout 
+#logout
   margin-top: 20px
 
 
-#add 
+#add
   margin-top: 20px
 
-.dashboard-title 
+.dashboard-title
   margin-top: 100px
 
 
-section 
+section
   margin-top: 100px
 
-p 
+p
   padding-bottom: 40px
   margin: 0px
 
-.main 
+.main
   padding-top: 40px
 
-.card 
+.card
   height: 90%
   margin-bottom: 1em
-
 </style>

@@ -100,6 +100,9 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.dispatch("setToken", localStorage.token);
+  },
   methods: {
     navigateTo(route) {
       this.$router.push(route);
@@ -108,6 +111,7 @@ export default {
       return this.menu;
     },
     logout() {
+      localStorage.removeItem("token");
       this.$store.dispatch("setToken", null);
       this.$router.push("/login");
     }

@@ -144,6 +144,7 @@ export default {
           })
           .then(result => {
             localStorage.token = result.token;
+            this.$store.dispatch("setToken", localStorage.token);
             setTimeout(() => {
               this.signingUpLoad = false;
               this.$router.push("/dashboard");

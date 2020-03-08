@@ -14,6 +14,21 @@ const list = async (req, res, next) => {
 	}
 };
 
+const findOne = async (req, res, next) => {
+	const username = req.body.username;
+	const user = await users.findOne(username);
+	try {
+		if (user) {
+			res.json(user);
+		} else {
+			res.status(404);
+			throw new Error("User not found");
+		}
+	} catch (error) {
+		next(error);
+	}
+};
+
 const updateOne = async (req, res, next) => {
 	// validate req.body
 	// find a user with given id
@@ -30,7 +45,10 @@ const updateOne = async (req, res, next) => {
 				const updatedUser = req.body;
 				// check if contains new password
 				if (updatedUser.password) {
-					updatedUser.password = await bcrypt.hash(updatedUser.password, 12);
+					updatedUser.password = await bcrypt.hash(
+						updatedUser.password,
+						12
+					);
 				}
 
 				const result = await users.findOneAdUpdate(query, {
@@ -52,5 +70,6 @@ const updateOne = async (req, res, next) => {
 
 module.exports = {
 	list,
-	updateOne
+	updateOne,
+	findOne
 };

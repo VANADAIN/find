@@ -4,7 +4,8 @@ const router = express.Router();
 const controller = require("../.././controllers/api.users.controller");
 
 // * isAdmin condition checked in app.js
-router.get("/", controller.list);
-router.patch("/:id", controller.updateOne);
+router.get("/list", controller.list);
+router.post("/", controller.findOne);
+router.patch("/", controller.updateOne);
 
 module.exports = router;

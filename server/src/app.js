@@ -27,7 +27,6 @@ app.use(middlewares.checkTokenSetUser);
 //! delete this if not necessarily
 app.get("/", (req, res) => {
 	res.json({
-		message: "Hello there!",
 		user: req.user
 	});
 });

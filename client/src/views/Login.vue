@@ -102,8 +102,8 @@ export default {
           })
           .then(result => {
             // correct info
-            this.$store.dispatch("setToken", result.token);
-            // localStorage.token = result.token;
+            localStorage.token = result.token;
+            this.$store.dispatch("setToken", localStorage.token);
 
             setTimeout(() => {
               this.loggingInLoad = false;
@@ -142,18 +142,17 @@ export default {
 <style lang="sass" scoped>
 #password
   margin-top: 20px
-.login-title 
+.login-title
   font-size: 40px
   text-decoration: underline
   margin-bottom: 40px
   margin-top: 100px
 
-.login 
+.login
   min-width: 320px
 .button
   margin-top: 40px
-p 
+p
   padding-bottom: 20px
   margin: 0px
-
 </style>
