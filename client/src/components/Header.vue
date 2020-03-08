@@ -7,6 +7,12 @@
 
       <v-toolbar-items class="hidden-sm-and-down">
         <v-switch class="toggle" v-model="$vuetify.theme.dark" label="Theme Dark"></v-switch>
+        <v-btn
+          v-if="$store.state.isAdmin"
+          class="nav-text"
+          depressed
+          @click="navigateTo({name: 'users'})"
+        >Users</v-btn>
         <v-btn class="nav-text" depressed @click="navigateTo({name: 'home'})">Home</v-btn>
         <v-btn class="nav-text" depressed router @click="navigateTo({name: 'dashboard'})">Dashboard</v-btn>
         <v-btn

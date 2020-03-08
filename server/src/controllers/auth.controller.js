@@ -67,7 +67,11 @@ const createToken = (user, res, next) => {
 				next(error);
 			} else {
 				// login all good
-				res.json({ token });
+				delete user.password;
+				delete user.email;
+				delete user.username;
+				delete user.active;
+				res.json({ token, user });
 			}
 		}
 	);

@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <v-btn color="teal" type="submit" class="btn" @click="signup()">Submit</v-btn>
+        <v-btn text color="teal" type="submit" class="btn" @click="signup()">Submit</v-btn>
       </div>
     </div>
   </div>

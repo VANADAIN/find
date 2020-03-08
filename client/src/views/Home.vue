@@ -10,7 +10,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn class="card-button teal" text :to="{name: 'signup'}">Sign Up</v-btn>
+      <v-btn text color="teal" :to="{name: 'signup'}">Sign Up</v-btn>
     </v-card-actions>
   </v-card>
 </template>

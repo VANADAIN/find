@@ -7,7 +7,7 @@ require("dotenv").config();
 const app = express();
 
 //* auth part
-const middlewares = require("./auth/auth.middlewares.js");
+const auth_middlewares = require("./auth/auth.middlewares.js");
 const auth = require("./auth/auth.routes");
 
 //* api part
@@ -22,9 +22,8 @@ app.use(
 app.use(volleyball);
 app.use(express.json());
 app.use(helmet());
-app.use(middlewares.checkTokenSetUser);
+app.use(auth_middlewares.checkTokenSetUser);
 
-//! delete this if not necessarily
 app.get("/", (req, res) => {
 	res.json({
 		user: req.user
@@ -32,8 +31,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", auth);
-app.use("/api/pages", middlewares.isLoggedIn, pages);
-app.use("/api/users", middlewares.isLoggedIn, middlewares.isAdmin, users);
+app.use("/api/pages", auth_middlewares.isLoggedIn, pages);
+app.use(
+	"/api/users",
+	auth_middlewares.isLoggedIn,
+	auth_middlewares.isAdmin,
+	users
+);
 
 //* errors part
 function notFound(req, res, next) {

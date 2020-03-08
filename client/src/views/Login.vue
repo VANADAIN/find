@@ -26,7 +26,7 @@
           ></v-text-field>
         </div>
 
-        <v-btn color="teal" class="button" @click="login()">Submit</v-btn>
+        <v-btn text color="teal" class="button" @click="login()">Submit</v-btn>
       </div>
     </div>
   </div>
@@ -104,6 +104,7 @@ export default {
             // correct info
             localStorage.token = result.token;
             this.$store.dispatch("setToken", localStorage.token);
+            this.$store.dispatch("setUserRights", result.user.role);
 
             setTimeout(() => {
               this.loggingInLoad = false;
