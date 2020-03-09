@@ -17,18 +17,18 @@ const findOne = async (req, res, next) => {
 	const search_username = req.body.search_username;
 	try {
 		const query = { username: search_username };
+
 		const user = await users.findOne(query);
-		try {
-			if (user) {
-				res.json(user);
-			} else {
-				res.status(404);
-				throw new Error("User doesn't exist.");
-			}
-		} catch (error) {
-			next(error);
+
+		if (user) {
+			res.json(user);
+		} else {
+			res.status(404);
+			const err = Error("User not found");
+			next(err);
 		}
 	} catch (error) {
+		res.status(500);
 		next(error);
 	}
 };
