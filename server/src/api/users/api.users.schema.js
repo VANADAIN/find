@@ -1,6 +1,7 @@
 const Joi = require("joi");
 
 const schema = Joi.object().keys({
+	id: Joi.string(),
 	username: Joi.string()
 		.trim()
 		.regex(/(^[a-zA-Z0-9_]*$)/)
@@ -9,9 +10,6 @@ const schema = Joi.object().keys({
 	email: Joi.string()
 		.trim()
 		.email(),
-	password: Joi.string()
-		.trim()
-		.min(8),
 	role: Joi.string().valid("user", "admin"),
 	active: Joi.bool()
 });

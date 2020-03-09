@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const Joi = require("joi");
 
 const db = require(".././db/connection");
@@ -15,14 +14,19 @@ const list = async (req, res, next) => {
 };
 
 const findOne = async (req, res, next) => {
-	const username = req.body.username;
-	const user = await users.findOne(username);
+	const search_username = req.body.search_username;
 	try {
-		if (user) {
-			res.json(user);
-		} else {
-			res.status(404);
-			throw new Error("User not found");
+		const query = { username: search_username };
+		const user = await users.findOne(query);
+		try {
+			if (user) {
+				res.json(user);
+			} else {
+				res.status(404);
+				throw new Error("User doesn't exist.");
+			}
+		} catch (error) {
+			next(error);
 		}
 	} catch (error) {
 		next(error);
@@ -33,28 +37,21 @@ const updateOne = async (req, res, next) => {
 	// validate req.body
 	// find a user with given id
 	// update user
-
-	const { id: _id } = req.params;
 	try {
 		const result = Joi.validate(req.body, schema);
-		if (!result.error) {
-			const query = { _id };
-			const user = await users.findOne(query);
 
+		if (!result.error) {
+			const query = { _id: req.body.id };
+			const user = await users.findOne(query);
+			delete req.body.id;
+			console.log(req.body);
 			if (user) {
 				const updatedUser = req.body;
-				// check if contains new password
-				if (updatedUser.password) {
-					updatedUser.password = await bcrypt.hash(
-						updatedUser.password,
-						12
-					);
-				}
 
-				const result = await users.findOneAdUpdate(query, {
+				const result = await users.findOneAndUpdate(query, {
 					$set: updatedUser
 				});
-				delete result.password;
+
 				res.json(result);
 			} else {
 				next();
