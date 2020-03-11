@@ -62,7 +62,29 @@ const validateUser = (defaultErrorMessage = "") => (req, res, next) => {
 	}
 };
 
-const findUser = (defaultLoginError, isError, errorCode = 422) => async (
+const findUser = () => async (req, res, next) => {
+	const user = await users.findOne({
+		username: req.body.username
+	});
+	if (user) {
+		res.status(409);
+		next(new Error("Username is already taken"));
+	} else {
+		const email = await users.findOne({
+			email: req.body.email
+		});
+		if (email) {
+			res.status(409);
+			next(new Error("User with this email already exist"));
+		} else {
+			// comes to brypt compare
+			req.loggingInUser = user;
+			next();
+		}
+	}
+};
+
+const loginValidate = (defaultLoginError, isError, errorCode = 422) => async (
 	req,
 	res,
 	next
@@ -85,5 +107,6 @@ module.exports = {
 	isLoggedIn,
 	isAdmin,
 	validateUser,
-	findUser
+	findUser,
+	loginValidate
 };
